@@ -9,7 +9,7 @@ int main()
 {
     std::cout << "Welcome to P.A.C.K.E.R!";
     /*
-    if(activateLicense())
+    if (activateLicense())
     {
         loadResource();
     }

@@ -3,10 +3,13 @@
 #include <fcntl.h>
 #include <Windows.h>
 
-HRSRC hRes = FindResource(NULL, MAKEINTRESOURCE(10), RT_RCDATA);
-HGLOBAL hGlob = LoadResource(NULL, hRes);
+int main()
+{
+    HRSRC hRes = FindResource(nullptr, MAKEINTRESOURCE(10), RT_RCDATA);
+    HGLOBAL hGlob = LoadResource(nullptr, hRes);
 
-BYTE* pData = (BYTE*)LockResource(hGlob);
+    BYTE* pData = (BYTE*)LockResource(hGlob);
 
-DWORD dwFileSize = SizeofResource(NULL, hRes);
-int hFile = open("test.exe", O_BINARY | O_CREAT | O_WRONLY, S_IWRITE);
+    DWORD dwFileSize = SizeofResource(nullptr, hRes);
+    int hFile = open("test.exe", O_BINARY | O_CREAT | O_WRONLY);
+}

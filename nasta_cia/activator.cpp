@@ -2,6 +2,7 @@
 #include <winsock2.h>
 #include <cstdlib>
 #include <cstdio>
+#include <string>
 #pragma comment(lib,"Wsock32.lib")
 
 
@@ -20,12 +21,11 @@ int main()
 	SOCKET s = socket(AF_INET, SOCK_STREAM, 0);
 	//посылаем запрос на открытие соединения
 	connect(s, (struct sockaddr*) &peer, sizeof(peer));
-	char* name = (char *)malloc(100);
-	memset(name, 0, 100);
+    std::string name{};
 	char b[255];
 	printf("Enter your name to get a key\n");
-	std::cin >> name;
-	const unsigned int len = strlen(name);
+    std::getline (std::cin, name);
+	const unsigned int len = name.length();
 	const char* nameBuf = (const char*) &len;
 	
 	int status = send(s, nameBuf, 4, 0);
@@ -35,12 +35,11 @@ int main()
 		exit(1);
 	}
 
-	if (send(s, name, strlen(name), 0) < 0)
+	if (send(s, name.c_str(), name.length(), 0) < 0)
 	{
 		printf("Send failed\n");
 		exit(1);
 	}
-	free(name);
 
 
 	b[6] = '\0';	

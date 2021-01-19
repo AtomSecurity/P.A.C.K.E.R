@@ -28,7 +28,7 @@ int main()
 	//посылаем запрос на открытие соединения
 	int requestStatus {connect(s, (struct sockaddr*) &peer, sizeof(peer))};
     std::string name {};
-	char key[255], *end;
+	char secretKey[26];
 	std::cout << "Enter your name to get a key -> ";
     std::getline (std::cin, name);
     std::cout << std::endl;
@@ -51,16 +51,19 @@ int main()
 	}
 
 
-	key[6] = '\0';
-
 	//принимаем данные
-	if (recv(s, key, sizeof(key), 0) != 0) {
-	    // std::cout << "From server: " << key << std::endl;
+	if (recv(s, secretKey, sizeof(secretKey), 0) != 0) {
+        secretKey[25] = '\0';
 	}
-	
-	int intKey {strtol(key, &end, 10)};
+	else
+    {
+	    std::cout << "Could not receive server answer." << std::endl;
+	    exit(1);
+    }
 
-	int userKey{};
+
+
+	std::string userKey{};
 	
 	while (true)
 	{
@@ -68,7 +71,7 @@ int main()
 		std::cin >> userKey;
 		std::cout << std::endl;
 
-		if (userKey == intKey)
+		if (userKey == secretKey)
 		{
 		    std::cout << "You are authorized, welcome." << std::endl;
 			break;

@@ -1,11 +1,28 @@
 #define UNICODE
-#include <ctime>
+#include <random>
+#include <string>
 #include <winsock2.h>
 #include <iostream>
 #include <cstdlib>
 
 #pragma comment(lib,"Wsock32.lib")
 
+std::string generateRandomString(int max_length=25)
+{
+    std::string possible_characters {"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+    std::random_device rd;
+    std::mt19937 engine(rd());
+    std::uniform_int_distribution<> dist(0, possible_characters.size() - 1);
+    std::string strReturn {};
+
+    for(size_t i {}; i < max_length; ++i)
+    {
+        int random_index {dist(engine)};
+        strReturn += possible_characters[random_index];
+    }
+
+    return strReturn;
+}
 
 int main()
 {
@@ -25,8 +42,6 @@ int main()
 	// помещаем сокет в состояние прослушивания
 	listen(s, 5);
 	while (true) {
-		char res[100];
-		
 		//структура определяет удаленный адрес, с которым соединяется сокет
 		sockaddr_in remote_addr {};
 		int size {sizeof(remote_addr)};
@@ -62,16 +77,13 @@ int main()
 		delete[] name;
 		name = nullptr;
 
-		// REDO RANDOM SEEDING
-		srand(time(nullptr));
-		int key = rand() % 899999 + 100000;
+		// Random key generation
+		std::string key = generateRandomString();
 
 		std::cout << "Key -> " << key << "\n" << std::endl;
 
-		_itoa_s(key, res, 10);
-
 		// Посылает данные на соединенный сокет
-		if (send(s2, res, strlen(res), 0) < 0)
+		if (send(s2, key.c_str(), key.length(), 0) < 0)
 		{
 		    std::cout << "Send failed." << std::endl;
 			exit(1);

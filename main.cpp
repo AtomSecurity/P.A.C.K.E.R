@@ -2,7 +2,7 @@
 #include <iostream>
 #include <Windows.h>
 
-// #include <activator.h>
+// #include <client.h>
 // #include <loader.h>
 
 int main()

@@ -39,11 +39,14 @@ int main()
 			printf("recv failed, status = %d\n", status);
 			exit(1);
 		}
+
+		// 2 lines of ??? code, either explain or redo!!!
 		const auto* len_pointer = (const unsigned int*) &nameBuf;
-	
 		int intNameLen = *len_pointer;
 
-		char* name = (char*)malloc(intNameLen+1);
+		// char* name = (char*)malloc(intNameLen+1); Use this instead:
+		char* name {new char[intNameLen+1]};
+
 		if (recv(s2, name, intNameLen, 0) < 0)
 		{
 			printf("recv failed\n");
@@ -51,14 +54,18 @@ int main()
 		}
 		name[intNameLen] = '\0';
 		printf("From client: %s\n", name);
-		
+
+		// Cleaning char* name
+		delete[] name;
+		name = nullptr;
+
 		// REDO RANDOM SEEDING
 		srand(time(nullptr));
 		int key = rand() % 899999 + 100000;
 		printf("Key = %d\n", key);
 			
 
-		itoa(key, res, 10);
+		_itoa_s(key, res, 10);
 
 		// Посылает данные на соединенный сокет
 		if (send(s2, res, strlen(res), 0) < 0)
@@ -70,6 +77,6 @@ int main()
 		//}
 		closesocket(s2);
 	}
-    WSACleanup();
+    // WSACleanup(); Unreachable code
 
 }

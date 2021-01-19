@@ -1,8 +1,8 @@
+#define UNICODE
 #include <iostream>
 #include <winsock2.h>
 #include <Ws2tcpip.h>
 #include <cstdlib>
-#include <cstdio>
 #include <string>
 
 #pragma comment(lib, "Wsock32.lib")
@@ -11,69 +11,71 @@
 
 int main()
 {
-	WORD wVersionRequested;
+	WORD wVersionRequested {MAKEWORD(2, 2)};
 	WSADATA wsaData;
-	wVersionRequested = MAKEWORD(2, 2);
 	WSAStartup(wVersionRequested, &wsaData);
 	struct sockaddr_in peer {};
 	peer.sin_family = AF_INET;
 	peer.sin_port = htons(5555);
+
 	// т.к. клиент и сервер на одном компьютере, пишем адрес 127.0.0.1
 	peer.sin_addr.s_addr;
-	InetPton(AF_INET, "127.0.0.1", &peer.sin_addr.s_addr);
+	InetPton(AF_INET, L"127.0.0.1", &peer.sin_addr.s_addr);
+
 	//создаем сокет
 	SOCKET s = socket(AF_INET, SOCK_STREAM, 0);
+
 	//посылаем запрос на открытие соединения
 	int requestStatus {connect(s, (struct sockaddr*) &peer, sizeof(peer))};
     std::string name {};
-	char b[255], *end;
-	printf("Enter your name to get a key\n");
+	char key[255], *end;
+	std::cout << "Enter your name to get a key -> ";
     std::getline (std::cin, name);
+    std::cout << std::endl;
 
-    // Explain or redo
-	const unsigned int len = name.length();
-	const char* nameBuf = (const char*) &len;
+    // for name length passing
+	const unsigned int len {name.length()};
+	const char* nameBuf {(const char*) &len};
 	
-	int status = send(s, nameBuf, 4, 0);
+	int status {send(s, nameBuf, 4, 0)};
 	if (status < 0)
 	{
-		printf("Send failed, status = %i\n", status);
+	    std::cout << "Send failed, status = " << status << std::endl;
 		exit(1);
 	}
 
 	if (send(s, name.c_str(), name.length(), 0) < 0)
 	{
-		printf("Send failed\n");
+	    std::cout << "Send failed" << std::endl;
 		exit(1);
 	}
 
 
-	b[6] = '\0';	
+	key[6] = '\0';
+
 	//принимаем данные
-	if (recv(s, b, sizeof(b), 0) != 0) {
-		printf("From server: %s\n", b);	
+	if (recv(s, key, sizeof(key), 0) != 0) {
+	    // std::cout << "From server: " << key << std::endl;
 	}
 	
-	int key = strtol(b, &end, 10);
-
-	Sleep(5000);
-	system("cls");
+	int intKey {strtol(key, &end, 10)};
 
 	int userKey{};
 	
 	while (true)
 	{
-		printf("Enter your key\n");
+	    std::cout << "Enter your key -> ";
 		std::cin >> userKey;
+		std::cout << std::endl;
 
-		if (userKey == key)
+		if (userKey == intKey)
 		{
-			printf("You are right, welcome.");
+		    std::cout << "You are authorized, welcome." << std::endl;
 			break;
 		}
 		else
 		{
-			printf("Try again.");
+		    std::cout << "Try again.\n" << std::endl;
 		}
 	}
 

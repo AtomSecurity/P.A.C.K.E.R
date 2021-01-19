@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "EndlessLoop"
 #define UNICODE
 #include <random>
 #include <string>
@@ -50,32 +52,32 @@ int main()
 		SOCKET s2 {accept(s, (struct sockaddr*)&remote_addr, &size)};
 
 		//принимаем данные
-		char nameBuf[4];
-		int status {recv(s2, nameBuf, 4, 0)};
+		char emailBuf[4];
+		int status {recv(s2, emailBuf, 4, 0)};
 		if (status < 0)
 		{
 		    std::cout << "Recv failed, status = " << status << std::endl;
-			exit(1);
+			continue;
 		}
 
-		// for name length passing
-		const auto* len_pointer {(const unsigned int*) &nameBuf};
-		unsigned int intNameLen {*len_pointer};
+		// for email length passing
+		const auto* len_pointer {(const unsigned int*) &emailBuf};
+		unsigned int intemailLen {*len_pointer};
 
-		char* name {new char[intNameLen+1]};
+		char* email {new char[intemailLen+1]};
 
-		if (recv(s2, name, static_cast<int>(intNameLen), 0) < 0)
+		if (recv(s2, email, static_cast<int>(intemailLen), 0) < 0)
 		{
 
             std::cout << "Recv failed." << std::endl;
-			exit(1);
+            continue;
 		}
-		name[intNameLen] = '\0';
-		std::cout << "From client: " << name << std::endl;
+		email[intemailLen] = '\0';
+		std::cout << "From client: " << email << std::endl;
 
-		// Cleaning char* name
-		delete[] name;
-		name = nullptr;
+		// Cleaning char* email
+		delete[] email;
+		email = nullptr;
 
 		// Random key generation
 		std::string key = generateRandomString();
@@ -86,7 +88,7 @@ int main()
 		if (send(s2, key.c_str(), key.length(), 0) < 0)
 		{
 		    std::cout << "Send failed." << std::endl;
-			exit(1);
+            continue;
 		}
 			
 		//}
@@ -95,3 +97,4 @@ int main()
     // WSACleanup(); Unreachable code
 
 }
+#pragma clang diagnostic pop

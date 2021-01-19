@@ -27,24 +27,24 @@ int main()
 
 	//посылаем запрос на открытие соединения
 	int requestStatus {connect(s, (struct sockaddr*) &peer, sizeof(peer))};
-    std::string name {};
+    std::string email {};
 	char secretKey[26];
-	std::cout << "Enter your name to get a key -> ";
-    std::getline (std::cin, name);
+	std::cout << "Enter your email to get a key -> ";
+    std::getline (std::cin, email);
     std::cout << std::endl;
 
-    // for name length passing
-	const unsigned int len {name.length()};
-	const char* nameBuf {(const char*) &len};
+    // for email length passing
+	const unsigned int len {email.length()};
+	const char* emailBuf {(const char*) &len};
 	
-	int status {send(s, nameBuf, 4, 0)};
+	int status {send(s, emailBuf, 4, 0)};
 	if (status < 0)
 	{
 	    std::cout << "Send failed, status = " << status << std::endl;
 		exit(1);
 	}
 
-	if (send(s, name.c_str(), name.length(), 0) < 0)
+	if (send(s, email.c_str(), email.length(), 0) < 0)
 	{
 	    std::cout << "Send failed" << std::endl;
 		exit(1);

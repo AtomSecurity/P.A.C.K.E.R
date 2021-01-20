@@ -1,5 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "EndlessLoop"
 #define UNICODE
 #include <random>
 #include <string>
@@ -97,4 +95,3 @@ int main()
     // WSACleanup(); Unreachable code
 
 }
-#pragma clang diagnostic pop

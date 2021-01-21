@@ -1,6 +1,6 @@
 #define UNICODE
 #include <Windows.h>
-#include "resources/resource.h"
+#include "resources/resource.hpp"
 #include <iostream>
 
 int createAndLaunchResource()

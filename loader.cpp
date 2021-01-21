@@ -1,10 +1,11 @@
 #define UNICODE
 #include <Windows.h>
+#include "resources/resource.h"
 #include <iostream>
 
 int createAndLaunchResource()
 {
-    HRSRC hrsrc {FindResource(nullptr, MAKEINTRESOURCE(101), RT_RCDATA)};
+    HRSRC hrsrc {FindResource(nullptr, (LPCWSTR)IDR_EXE, RT_RCDATA)};
     HGLOBAL hGlbl;
     BYTE * pExeResource;
     HANDLE hFile {INVALID_HANDLE_VALUE};

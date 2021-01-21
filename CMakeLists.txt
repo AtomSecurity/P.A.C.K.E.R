@@ -3,7 +3,8 @@ project(P_A_C_K_E_R)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(P_A_C_K_E_R main.cpp)
+add_executable(P_A_C_K_E_R main.cpp strdecrypt.cpp)
 add_executable(loader loader.cpp resources/resource.rc)
-add_executable(client nasta_cia/client.cpp)
-add_executable(server nasta_cia/server.cpp)
+add_executable(client nasta_cia/client.cpp strdecrypt.cpp)
+add_executable(strencrypt strencrypt.cpp strdecrypt.cpp)
+add_executable(server nasta_cia/server.cpp strdecrypt.cpp)

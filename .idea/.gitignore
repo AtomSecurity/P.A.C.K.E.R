@@ -6,3 +6,5 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+# Release folder
+/../../../../../../../:\Users\nabab\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-release-visual-studio

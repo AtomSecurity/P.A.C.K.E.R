@@ -1,4 +1,0 @@
-#ifndef _resource_rc
-#define _resource_rc
-MYEXE EXE "test.exe"
-#endif // _resource_rc

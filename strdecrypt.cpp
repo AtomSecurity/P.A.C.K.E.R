@@ -1,6 +1,6 @@
 /*STRDECRYPT by cr7pt0pl4gu3.*/
 
-#include <string>
+#include "strdecrypt.hpp"
 
 std::string stringDecrypt(std::string str) {
     std::string ret{};

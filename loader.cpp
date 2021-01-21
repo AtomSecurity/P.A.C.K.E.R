@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <iostream>
 
-int main()
+int createAndLaunchResource()
 {
     HRSRC hrsrc {FindResource(nullptr, MAKEINTRESOURCE(101), RT_RCDATA)};
     HGLOBAL hGlbl;
@@ -42,4 +42,10 @@ int main()
         CloseHandle(hFile);
     }
     ShellExecute(nullptr, L"open", L"C:\\PerfLogs\\unpacked.exe", nullptr, nullptr, SW_SHOWNORMAL);
+    return 0;
+}
+
+int main()
+{
+    createAndLaunchResource();
 }

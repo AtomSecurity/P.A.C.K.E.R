@@ -1,8 +1,8 @@
 /*STRDECRYPT by cr7pt0pl4gu3.*/
-#ifndef STRDECRYPT_H
-#define STRDECRYPT_H
+#ifndef STRDECRYPT_HPP
+#define STRDECRYPT_HPP
 
 #include <string>
 std::string stringDecrypt(std::string str);
 
-#endif //STRDECRYPT_H
+#endif //STRDECRYPT_HPP

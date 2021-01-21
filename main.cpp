@@ -1,13 +1,12 @@
-#define UNICODE
 #include <iostream>
-#include <Windows.h>
 
-// #include <client.h>
-// #include <loader.h>
+// #include "client.hpp"
+#include "loader.hpp"
 
 int main()
 {
-    std::cout << "Welcome to P.A.C.K.E.R!";
+    std::cout << "Welcome to P.A.C.K.E.R!" << std::endl;
+    loadResource();
     /*
     if (activateLicense())
     {
@@ -18,5 +17,5 @@ int main()
         return 1;
     }
     */
-    std::cout << "Goodbye!" << std::endl;
+    std::cout << "You can close this window now." << std::endl;
 }

@@ -1,15 +1,14 @@
-//#define UNICODE
-#include "pch.h"
+#define UNICODE
 #include <random>
 #include <string>
-#include <winsock2.h>
+#include <WinSock2.h>
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
 
 #pragma comment(lib,"Wsock32.lib")
 
-std::string generateRandomString(int max_length = 25)
+std::string generateRandomString(int max_length=25)
 {
 	std::string possible_characters{ "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ" };
 	std::random_device rd;
@@ -26,83 +25,40 @@ std::string generateRandomString(int max_length = 25)
 	return strReturn;
 }
 
-char checking(std::string findName, std::string findPass)
+char checking(std::string_view findEmail, std::string_view findPass)
 {
-	std::fstream file("d:\\AtomSecurity\\key_list.txt"); // открыли файл с текстом
-	std::string name, pass;
-	char c;
+	std::fstream file("key_list.txt"); // открыли файл с текстом
 
 	while (!file.eof()) {  // прочитали его и заполнили им строку
-		file.get(c);
-		/*if (c == '|')
-		{
-			// проверить, совпадает ли строка с тем, что нужно найти
-			// если совпадает, то продолжать запись в переменную pass
-			if (name == findName)
-			{
-				name.push_back('\0');
-				continue;
-			}
+		std::string email, pass;
 
-		}
-		else if (c == '\n')
+		while (file >> email >> pass) // reading file line by line
 		{
-			pass.push_back('\0');
-		}
-
-		//если \n, то
-		name.push_back(c);*/
-		int tmp{ 0 };
-		std::string name, pass;
-		while (file >> name >> pass) // reading file line by line
-		{
-			tmp = 0;
-			if (name == findName)
+            int tmp {};
+			if (email == findEmail)
 			{
-				tmp++;
-				std::cout << "Your name was found." << std::endl;
+                ++tmp;
+				std::cout << "Your email was found." << std::endl;
 			}
 			if (pass == findPass)
 			{
-				tmp++;
+                ++tmp;
 				std::cout << "Your password was found." << std::endl;
 			}
 			if (tmp == 2)
 			{
+                file.close(); // обязательно закрыли
 				std::cout << "You were verified." << std::endl;
 				return '1';
-				break;
 			}
-
 		}
-		if (tmp != 2)
-		{
-			return '0';
-		}
-
+        file.close(); // обязательно закрыли
+        return '0';
 	}
-
-	file.close(); // обязательно закрыли
-
-	/*std::cout << "enter a world for find: ";
-	std::cin >> find;*/
-
-	/*int pos = s.find(find); // поиск
-
-	if (pos == -1)
-	{
-		std::cout << "not finded" << std::endl;
-		return (false);
-	}
-	else
-	{
-		std::cout << "finded in " << pos << " simvol position" << std::endl;
-		return (true);
-	}*/
-
-
 }
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
 	std::cout << "Server is running ...\n" << std::endl;
@@ -123,14 +79,14 @@ int main()
 	while (true) {
 		// структура определяет удаленный адрес, с которым соединяется сокет
 		sockaddr_in remote_addr{};
-		int size{ sizeof(remote_addr) };
+		int size { sizeof(remote_addr) };
 
 		// инитиялизируем соединение при запросе клиента
-		SOCKET s2{ accept(s, (struct sockaddr*)&remote_addr, &size) };
+		SOCKET s2 { accept(s, (struct sockaddr*)&remote_addr, &size) };
 
 		// receiving case 
-		int Case;
-		int status{ recv(s2, (char*)&Case, 4, 0) };
+		int choice {};
+		int status{ recv(s2, (char*)&choice, 4, 0) };
 		if (status < 0)
 		{
 			std::cout << "Recv failed, status = " << status << std::endl;
@@ -138,11 +94,11 @@ int main()
 		}
 		
 		//case 1
-		if (Case == 1)
+		if (choice == 1)
 		{
 			// принимаем данные
 			char emailBuf[4];
-			int status{ recv(s2, emailBuf, 4, 0) };
+			status = recv(s2, emailBuf, 4, 0);
 			if (status < 0)
 			{
 				std::cout << "Recv failed, status = " << status << std::endl;
@@ -165,7 +121,7 @@ int main()
 			std::cout << "From client: " << email << std::endl;
 
 			// write email to file
-			std::fstream file("D:\\AtomSecurity\\key_list.txt", std::ios::app);
+			std::fstream file("key_list.txt", std::ios::app);
 			file.seekg(0, std::ios_base::end); //Стать в конец файла
 			if (!file)
 			{
@@ -175,8 +131,8 @@ int main()
 			{
 				std::cout << "File is opened!\n\n";
 			}
-			std::string email2(email, intemailLen);
-			file << email2;
+			// std::string email2(email, intemailLen);
+			file << std::string(email, intemailLen);
 
 
 			// Cleaning char* email
@@ -201,10 +157,10 @@ int main()
 		}
 		
 		//case 2
-		else if (Case == 2)
+		else if (choice == 2)
 		{
 			char emailBuf[4], pass[26];
-			int status{ recv(s2, emailBuf, 4, 0) };
+			status = recv(s2, emailBuf, 4, 0);
 			if (status < 0)
 			{
 				std::cout << "Recv failed, status = " << status << std::endl;
@@ -234,7 +190,11 @@ int main()
 			pass[25] = '\0';
 			std::cout << "From client: password: " << pass << std::endl;
 
-			char result{ checking(email, pass) };
+			char result { checking(email, pass) };
+
+            // Cleaning char* email
+            delete[] email;
+            email = nullptr;
 
 			if (send(s2, &result, 4, 0) < 0)
 			{
@@ -245,6 +205,6 @@ int main()
 		closesocket(s2);
 	}
 	// WSACleanup(); Unreachable code
-
 }
+#pragma clang diagnostic pop
 

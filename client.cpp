@@ -1,17 +1,13 @@
-//#define UNICODE
-#include "pch.h"
+#define UNICODE
 #include <iostream>
-#include <winsock2.h>
-#include <Ws2tcpip.h>
+#include <WinSock2.h>
+#include <WS2tcpip.h>
 #include <cstdlib>
 #include <string>
-#include <fstream>
-#include <iterator>
+#include "strdecrypt.hpp"
 
 #pragma comment(lib, "Wsock32.lib")
 #pragma comment(lib, "Ws2_32.lib")
-
-using namespace std;
 
 int main()
 {
@@ -28,21 +24,21 @@ int main()
 	InetPton(AF_INET, L"127.0.0.1", &peer.sin_addr.s_addr);
 
 	//создаем сокет
-	SOCKET s = socket(AF_INET, SOCK_STREAM, 0);
+	SOCKET s {socket(AF_INET, SOCK_STREAM, 0)};
 
 	//посылаем запрос на открытие соединения
-	int requestStatus{ connect(s, (struct sockaddr*) &peer, sizeof(peer)) };
+	int requestStatus { connect(s, (struct sockaddr*) &peer, sizeof(peer)) };
 	
 
-	std::string email{0};
+	std::string email;
 	char secretKey[26];
 
-	int Case;
-	std::cout<<"Choose your operation: 1 - get a key(if you don`t have); 2 - verify"<<std::endl;
-	std::cin >> Case;
+	int choice;
+	std::cout << "Choose your operation: 1 - get a key(if you don`t have); 2 - verify" << std::endl;
+	std::cin >> choice;
 
 	// sending case 
-	int status{ send(s, (char*)&Case, 4, 0) };
+	int status { send(s, (char*)&choice, 4, 0) };
 	if (status < 0)
 	{
 		std::cout << "Send failed, status = " << status << std::endl;
@@ -50,18 +46,17 @@ int main()
 	}
 	
 	//case 1, getting key
-	if (Case == 1)
+	if (choice == 1)
 	{
 
 		std::cout << "Enter your email to get a key -> ";
-		cin.ignore();
-		getline(cin, email);
+		std::cin >> email;
 
 		// for email length passing
 		const unsigned int len{ email.length() };
 		const char* emailBuf{ (const char*)&len };
 	
-		int status{ send(s, emailBuf, 4, 0) };
+		status = send(s, emailBuf, 4, 0);
 		if (status < 0)
 		{
 			std::cout << "Send failed, status = " << status << std::endl;
@@ -88,9 +83,9 @@ int main()
 	}
 
 	// case 2, checking key
-	else if (Case == 2)
+	else if (choice == 2)
 	{
-		std::string userKey{};
+		std::string userKey;
 
 		std::cout << "Enter your e-mail  -> ";
 		std::cin >> email;
@@ -104,7 +99,7 @@ int main()
 		const char* emailBuf{ (const char*)&len };
 
 
-		int status{ send(s, emailBuf, 4, 0) };
+		status = send(s, emailBuf, 4, 0);
 		if (status < 0)
 		{
 			std::cout << "Send failed, status = " << status << std::endl;
@@ -123,7 +118,7 @@ int main()
 			std::cout << "Send failed" << std::endl;
 			exit(1);
 		}
-		char result;
+		char result {};
 
 		// checking
 		if (recv(s, &result, 4, 0) < 0)

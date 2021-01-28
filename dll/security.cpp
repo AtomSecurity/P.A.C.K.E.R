@@ -47,6 +47,7 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD fdwReason, PVOID lpReserved)
 
         case DLL_PROCESS_DETACH:
             // Perform any necessary cleanup.
+            // Need to delete the .dll and .exe from temp folder!
             exit(0);
 
         default:

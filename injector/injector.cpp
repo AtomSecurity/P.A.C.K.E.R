@@ -3,8 +3,9 @@
 #define UNICODE
 #include <Windows.h>
 #include <iostream>
+#include <filesystem>
 #include <cstring>
-#include "../resources/resource.hpp"
+#include "../resources/resources.hpp"
 #include "../error-wrapper/error.hpp"
 
 void injectThread(int pid)
@@ -25,10 +26,10 @@ void injectThread(int pid)
     }
 
     // Hardcoded path to the security .dll
-    const char* path {"C:\\PerfLogs\\dll-to-inject.dll"};
+    std::string path {std::filesystem::temp_directory_path().string().append("security.dll")};
 
     // Writing .dll to the target process memory
-    if (!WriteProcessMemory(hProcess, buffer, path, strlen(path), nullptr))
+    if (!WriteProcessMemory(hProcess, buffer, &path, path.length(), nullptr))
     {
         Error("Failed to write .dll in the target process memory!\n");
     }

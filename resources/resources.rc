@@ -1,0 +1,4 @@
+#include "resources.hpp"
+
+IDR_EXE RCDATA "to-protect.exe"
+IDR_DLL RCDATA "security.dll"

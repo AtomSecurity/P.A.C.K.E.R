@@ -4,7 +4,7 @@
 #include <WS2tcpip.h>
 #include <cstdlib>
 #include <string>
-#include "strdecrypt.hpp"
+#include "../string-encryption/strdecrypt.hpp"
 
 #pragma comment(lib, "Wsock32.lib")
 #pragma comment(lib, "Ws2_32.lib")
@@ -53,7 +53,7 @@ int main()
 		std::cin >> email;
 
 		// for email length passing
-		const unsigned int len{ email.length() };
+		const unsigned int len{ static_cast<unsigned int>(email.length()) };
 		const char* emailBuf{ (const char*)&len };
 	
 		status = send(s, emailBuf, 4, 0);
@@ -95,7 +95,7 @@ int main()
 		std::cout << std::endl;
 
 		// for email length passing
-		const unsigned int len{ email.length() };
+		const unsigned int len{ static_cast<unsigned int>(email.length()) };
 		const char* emailBuf{ (const char*)&len };
 
 

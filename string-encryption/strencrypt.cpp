@@ -1,5 +1,3 @@
-/*STRENCRYPT by cr7pt0pl4gu3.*/
-
 #include <iostream>
 #include <string>
 

@@ -1,5 +1,3 @@
-/*STRDECRYPT by cr7pt0pl4gu3.*/
-
 #include "strdecrypt.hpp"
 
 std::string stringDecrypt(std::string_view str)

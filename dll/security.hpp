@@ -1,9 +1,9 @@
 #ifndef SECURITY_HPP
 #define SECURITY_HPP
 
-#include <string>
-
+#include <Windows.h>
 #define EXPORT extern "C++" __declspec (dllexport)
-EXPORT std::string CALLBACK GetCodeWord();
+EXPORT void CALLBACK StaticDefense();
+bool isThreadSigned();
 
 #endif //SECURITY_HPP

@@ -7,10 +7,9 @@
 int main()
 {
     // Starting static .dll defense
-    // StaticDefense();
+    StaticDefense();
 
     // Maybe also check the hash of the thread to verify integrity
-
-    std::cout << "Press any button to close the program...";
-    std::cin.get();
+    std::cout << "Finished execution.";
+    // exit(0); so the thread exits as well
 }

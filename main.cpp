@@ -52,6 +52,7 @@ int main()
     // Loading the resource and launching .exe from it
     PROCESS_INFORMATION pi {loadResource()};
 
+    Sleep(1000);
     // Injecting the security dll thread into the newly launched executable
-    // injectThread(pi.dwProcessId);
+    injectThread(pi.dwProcessId);
 }

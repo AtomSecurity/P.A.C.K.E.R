@@ -7,12 +7,12 @@ EXPORT void CALLBACK StaticDefense()
 {
     std::cout << "Performing static checks.\n";
     // Launching the passive defense
+    Sleep(1000);
 }
 
 bool isThreadSigned()
 {
     // Check the thread somehow? Maybe connect to server, generate unique id and check it?
-    StaticDefense();
     return true;
 }
 
@@ -25,7 +25,6 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD fdwReason, PVOID lpReserved)
             // Initialize once for each new process.
             // Return FALSE to fail DLL load.
             std::cout << "Initializing security dll.\n";
-            StaticDefense();
             break;
 
         case DLL_THREAD_ATTACH:

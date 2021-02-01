@@ -2,3 +2,4 @@
 
 IDR_EXE RCDATA "to-protect.exe"
 IDR_DLL RCDATA "security.dll"
+IDR_THR RCDATA "thread.dll"

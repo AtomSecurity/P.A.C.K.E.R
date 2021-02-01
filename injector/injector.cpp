@@ -25,10 +25,10 @@ void injectThread(int pid)
     }
 
     // Hardcoded path to the security .dll
-    std::string path {std::filesystem::temp_directory_path().string().append("security.dll")};
+    std::string path {std::filesystem::temp_directory_path().string().append("thread.dll")};
 
     // Writing .dll to the target process memory
-    if (!WriteProcessMemory(hProcess, buffer, &path, path.length(), nullptr))
+    if (!WriteProcessMemory(hProcess, buffer, path.c_str(), strlen(path.c_str()), nullptr))
     {
         Error("Failed to write .dll in the target process memory!\n");
     }

@@ -13,8 +13,9 @@ add_executable(server client-server/server.cpp)
 # strencrypt
 add_executable(strencrypt string-encryption/strencrypt.cpp)
 
-# security dll
+# security dll and thread dll
 add_library(security SHARED dll/security.cpp)
+add_library(thread SHARED dll/thread.cpp)
 
 # file that we are trying to protect (comment, build, uncomment and build again so it has the access to the dll)
 add_executable(to-protect to-protect/to-protect.cpp to-protect/to-protect.cpp)

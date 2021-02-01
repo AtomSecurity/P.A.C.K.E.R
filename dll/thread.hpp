@@ -7,5 +7,6 @@ void debugWin32Check();
 void checkHardwareBreakpoints();
 void debugObjectCheck();
 void hideThread(HANDLE hThread);
+void checkWinDbg();
 
 #endif //THREAD_HPP

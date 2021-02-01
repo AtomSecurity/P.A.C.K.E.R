@@ -124,11 +124,23 @@ void hideThread(HANDLE hThread)
     }
 }
 
+void checkWinDbg()
+{
+    HANDLE hWinDbg = FindWindow(TEXT("WinDbgFrameClass"), nullptr);
+
+    if (hWinDbg)
+    {
+        std::cout << "Please close your debugging application and restart the program!\n";
+        exit(1);
+    }
+}
+
 EXPORT void CALLBACK StaticDefense()
 {
     std::cout << "Performing static checks.\n";
     // Launching the passive defense
     hideThread(GetCurrentThread());
+    checkWinDbg();
     debugWin32Check();
     checkHardwareBreakpoints();
     debugObjectCheck();

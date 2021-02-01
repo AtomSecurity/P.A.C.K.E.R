@@ -132,10 +132,22 @@ void hideThread(HANDLE hThread)
     {
         // Do something
         hideThread(GetCurrentThread());
+        checkWinDbg();
         debugWin32Check();
         checkHardwareBreakpoints();
         debugObjectCheck();
         Sleep(500);
+    }
+}
+
+void checkWinDbg()
+{
+    HANDLE hWinDbg = FindWindow(TEXT("WinDbgFrameClass"), nullptr);
+
+    if (hWinDbg)
+    {
+        std::cout << "Please close your debugging application and restart the program!\n";
+        exit(1);
     }
 }
 

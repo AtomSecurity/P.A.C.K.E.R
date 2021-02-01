@@ -53,5 +53,5 @@ int main()
     PROCESS_INFORMATION pi {loadResource()};
 
     // Injecting the security dll thread into the newly launched executable
-    injectThread(pi.dwProcessId);
+    // injectThread(pi.dwProcessId);
 }

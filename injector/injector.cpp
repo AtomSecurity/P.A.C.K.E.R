@@ -4,7 +4,6 @@
 #include <Windows.h>
 #include <iostream>
 #include <filesystem>
-#include <cstring>
 #include "../resources/resources.hpp"
 #include "../error-wrapper/error.hpp"
 

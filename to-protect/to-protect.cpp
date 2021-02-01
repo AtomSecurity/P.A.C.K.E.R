@@ -7,7 +7,7 @@
 int main()
 {
     // Starting static .dll defense
-    StaticDefense();
+    // StaticDefense();
 
     // Maybe also check the hash of the thread to verify integrity
 

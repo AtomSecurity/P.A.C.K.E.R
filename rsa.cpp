@@ -7,13 +7,13 @@
 
 int main()
 {
-	RSA* key;
+    RSA* key;
     unsigned char cipher_text[256];
-    unsigned char plain_text_sender[] = "Hello";
+    unsigned char plain_text_sender[] = "RFlX4VISnxXahwh7E73qovsPJ+GmlSJq2e34r0VdqCg=";
     unsigned char plain_text_receiver[256];
-    unsigned int num;
+    int num;
     BIGNUM* bne;
-    BIO	*bp_public = nullptr, *bp_private = nullptr;
+    BIO	*bp_public, *bp_private;
     unsigned long e = RSA_F4;
 
 
@@ -22,13 +22,13 @@ int main()
 
     key = RSA_new();
 
-    int ret = RSA_generate_key_ex(key, 2048, bne, nullptr);
+    RSA_generate_key_ex(key, 2048, bne, nullptr);
 
     bp_public = BIO_new_file("public.txt", "w+");
-    ret = PEM_write_bio_RSAPublicKey(bp_public, key);
+    PEM_write_bio_RSAPublicKey(bp_public, key);
 
     bp_private = BIO_new_file("private.txt", "w+");
-    ret = PEM_write_bio_RSAPrivateKey(bp_private, key, EVP_des_ede3_cbc(), nullptr, 0, nullptr, nullptr);
+    PEM_write_bio_RSAPrivateKey(bp_private, key, nullptr, nullptr, 0, nullptr, nullptr);
 
     num = RSA_public_encrypt(sizeof(plain_text_sender) - 1, plain_text_sender, cipher_text, key, RSA_PKCS1_PADDING);
     for(unsigned char i : cipher_text)
@@ -39,7 +39,19 @@ int main()
 
     num = RSA_private_decrypt(num, cipher_text, plain_text_receiver, key, RSA_PKCS1_PADDING);
 
-    printf("%s", plain_text_receiver);
 
-	return 0;
+    std::string final_str;
+    for (auto& i : plain_text_receiver)
+    {
+        if (static_cast<int>(i) == 204)
+        {
+            break;
+        }
+        else
+        {
+            final_str += i;
+        }
+    }
+
+    std::cout << final_str;
 }

@@ -9,6 +9,16 @@
 #pragma comment(lib, "Wsock32.lib")
 #pragma comment(lib, "Ws2_32.lib")
 
+void sending(SOCKET s, char* toSend, int len)
+{
+    int status {send(s, toSend, len, 0)};
+    if (status < 0)
+    {
+        std::cout << "Send failed" << std::endl;
+        exit(1);
+    }
+}
+
 int main()
 {
 	
@@ -28,7 +38,6 @@ int main()
 
 	//посылаем запрос на открытие соединения
 	int requestStatus { connect(s, (struct sockaddr*) &peer, sizeof(peer)) };
-	
 
 	std::string email;
 	char secretKey[26];
@@ -37,15 +46,16 @@ int main()
 	std::cout << "Choose your operation: 1 - get a key(if you don`t have); 2 - verify" << std::endl;
 	std::cin >> choice;
 
-	// sending case 
-	int status { send(s, (char*)&choice, 4, 0) };
-	if (status < 0)
+	// sending case
+	int len{4};
+    sending(s, (char *) &choice, len);
+	/*if (send(s, (char*)&choice, len, 0) < 0)
 	{
-		std::cout << "Send failed, status = " << status << std::endl;
+		std::cout << "Send failed" << std::endl;
 		exit(1);
-	}
+	}*/
 	
-	//case 1, getting key
+	// case 1, getting key
 	if (choice == 1)
 	{
 
@@ -55,11 +65,10 @@ int main()
 		// for email length passing
 		const unsigned int len{ static_cast<unsigned int>(email.length()) };
 		const char* emailBuf{ (const char*)&len };
-	
-		status = send(s, emailBuf, 4, 0);
-		if (status < 0)
+
+		if (send(s, emailBuf, 4, 0) < 0)
 		{
-			std::cout << "Send failed, status = " << status << std::endl;
+			std::cout << "Send failed" << std::endl;
 			exit(1);
 		}
 
@@ -70,7 +79,8 @@ int main()
 		}
 
 		// принимаем данные
-		if (recv(s, secretKey, sizeof(secretKey), 0) != 0) {
+		if (recv(s, secretKey, sizeof(secretKey), 0) != 0)
+		{
 			secretKey[25] = '\0';
 		}
 		else
@@ -98,11 +108,9 @@ int main()
 		const unsigned int len{ static_cast<unsigned int>(email.length()) };
 		const char* emailBuf{ (const char*)&len };
 
-
-		status = send(s, emailBuf, 4, 0);
-		if (status < 0)
+		if (send(s, emailBuf, 4, 0) < 0)
 		{
-			std::cout << "Send failed, status = " << status << std::endl;
+			std::cout << "Send failed" << std::endl;
 			exit(1);
 		}
 

@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="P_A_C_K_E_R"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="msvc8"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="packer">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/packer.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 packer"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="packer/fast">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/packer.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 packer/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="client">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/client.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 client"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="client/fast">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/client.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 client/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="to-protect">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/to-protect.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 to-protect"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="to-protect/fast">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/to-protect.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 to-protect/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="server">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/server.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 server"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="server/fast">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/server.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 server/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="thread">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/thread.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 thread"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="thread/fast">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/thread.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 thread/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="strencrypt">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/strencrypt.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 strencrypt"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="strencrypt/fast">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/strencrypt.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 strencrypt/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="security">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/security.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 security"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="security/fast">
+				<Option output="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug/security.dll" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.15.26726\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 security/fast"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 edit_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f C:\Users\Owner\Documents\AtomSecurity\P.A.C.K.E.R\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/client-server/client.cpp">
+			<Option target="client"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/client-server/server.cpp">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/dll/security.cpp">
+			<Option target="security"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/dll/security.hpp">
+			<Option target="security"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/dll/thread.cpp">
+			<Option target="thread"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/dll/thread.hpp">
+			<Option target="thread"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/error-wrapper/error.cpp">
+			<Option target="packer"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/error-wrapper/error.hpp">
+			<Option target="packer"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/injector/injector.cpp">
+			<Option target="packer"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/injector/injector.hpp">
+			<Option target="packer"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/loader/loader.cpp">
+			<Option target="packer"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/loader/loader.hpp">
+			<Option target="packer"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/main.cpp">
+			<Option target="packer"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/resources/resources.rc">
+			<Option target="packer"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/string-encryption/strencrypt.cpp">
+			<Option target="strencrypt"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/to-protect/to-protect.cpp">
+			<Option target="to-protect"/>
+		</Unit>
+		<Unit filename="C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

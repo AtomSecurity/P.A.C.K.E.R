@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/resources/resources.hpp
+
+C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/resources/resources.rc
+resources.hpp
+C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/resources/resources.hpp
+

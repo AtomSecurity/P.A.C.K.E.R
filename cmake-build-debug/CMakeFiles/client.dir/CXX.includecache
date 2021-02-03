@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/client-server/client.cpp
+iostream
+-
+WinSock2.h
+-
+WS2tcpip.h
+-
+cstdlib
+-
+string
+-
+../string-encryption/strdecrypt.hpp
+C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/string-encryption/strdecrypt.hpp
+
+C:/Users/Owner/Documents/AtomSecurity/P.A.C.K.E.R/string-encryption/strdecrypt.hpp
+string
+-
+

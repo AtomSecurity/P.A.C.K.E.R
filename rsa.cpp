@@ -30,7 +30,23 @@ int main()
     bp_private = BIO_new_file("private.txt", "w+");
     PEM_write_bio_RSAPrivateKey(bp_private, key, nullptr, nullptr, 0, nullptr, nullptr);
 
-    num = RSA_public_encrypt(sizeof(plain_text_sender) - 1, plain_text_sender, cipher_text, key, RSA_PKCS1_PADDING);
+    FILE* fp = fopen("public.txt", "rt");
+
+    RSA* rsaPublicKey = PEM_read_RSA_PUBKEY(fp, nullptr, nullptr, nullptr);
+    fclose(fp);//PEM_read_bio_RSA_PUBKEY(bio, nullptr, nullptr, nullptr);
+
+    //BIO_free(bio);
+
+    RSA_public_encrypt(sizeof(plain_text_sender) - 1, (const unsigned char*)plain_text_sender, cipher_text, rsaPublicKey, RSA_PKCS1_PADDING);
+
+
+    //std::cout << rsaPublicKey << std::endl;
+
+    for(unsigned char i : cipher_text)
+    {
+        printf("%x", i);
+    }
+    /*num = RSA_public_encrypt(sizeof(plain_text_sender) - 1, plain_text_sender, cipher_text, key, RSA_PKCS1_PADDING);
     for(unsigned char i : cipher_text)
     {
         printf("%x", i);
@@ -53,5 +69,5 @@ int main()
         }
     }
 
-    std::cout << final_str;
+    std::cout << final_str;*/
 }

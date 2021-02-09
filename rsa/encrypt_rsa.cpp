@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <openssl/rsa.h>
-#include <openssl/applink.c>
 #include <openssl/pem.h>
 
 

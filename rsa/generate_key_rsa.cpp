@@ -3,6 +3,7 @@
 #include <openssl/pem.h>
 #include "encrypt_rsa.hpp"
 #include "decrypt_rsa.hpp"
+#include "include_rsa.hpp"
 
 
 

@@ -4,6 +4,7 @@
 // #include "client.hpp"
 #include "loader/loader.hpp"
 #include "injector/injector.hpp"
+#include "aes256/aes256encrypt.hpp"
 
 // Snippet for checking if the current process is elevated or not
 BOOL IsProcessElevated()
@@ -40,7 +41,17 @@ BOOL IsProcessElevated()
 int main()
 {
     std::cout << "Welcome to P.A.C.K.E.R!\n";
-
+    std::cout << "Do you want to encrypt your data? [Not for users]\n";
+    std::cout << "1 - NO, 2 - YES: ";
+    short choice {};
+    std::cin >> choice;
+    if (choice == 2)
+    {
+        // Return aes string, encrypt with rsa, save to file
+        std::string key {AES256Encrypt()};
+        // Encrypt with RSA
+        return 0;
+    }
     // Checking if run with admin rights
     if (!IsProcessElevated())
     {
@@ -48,6 +59,8 @@ int main()
         Sleep(5000);
         return 1;
     }
+
+    //
 
     // Loading the resource and launching .exe from it
     PROCESS_INFORMATION pi {loadResource()};

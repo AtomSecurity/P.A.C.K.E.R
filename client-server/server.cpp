@@ -1,4 +1,4 @@
-//#define UNICODE
+#define UNICODE
 #include <random>
 #include <string>
 #include <WinSock2.h>
@@ -102,40 +102,31 @@ void writeToFile(char* email, std::string key, unsigned int intemailLen)
 	file.close();
 }
 
-char* receive(SOCKET s, int len)
+void receive(SOCKET s, char* toRreceive, int len)
 {
-    char* toReceive{};
-
-	if (recv(s, toReceive, len, 0) < 0)
-	{
-		std::cout << "Recv failed" << std::endl;
+    if (recv(s, toRreceive, len, 0) < 0) {
+        std::cout << "Recv failed" << std::endl;
         exit(1);
-	}
-	return toReceive;
+    }
+}
+
+void sending(SOCKET s, char* toSend, int len)
+{
+    int status {send(s, toSend, len, 0)};
+    if (status < 0)
+    {
+        std::cout << "Send failed" << std::endl;
+        exit(1);
+    }
 }
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
-	/*std::cout << "Server is running ...\n" << std::endl;
-	WORD wVersionRequested{ MAKEWORD(2, 2) };
-	WSADATA wsaData;
-	WSAStartup(wVersionRequested, &wsaData);
-
-	// создаем сокет
-	SOCKET s{ socket(AF_INET, SOCK_STREAM, 0) };
-	struct sockaddr_in local {};
-	local.sin_family = AF_INET;
-	local.sin_port = htons(5555);
-	local.sin_addr.s_addr = htonl(INADDR_ANY);
-	// связываем сокет с адресом
-	int bindAddress{ bind(s, (struct sockaddr*)&local, sizeof(local)) };
-	// помещаем сокет в состояние прослушивания
-	listen(s, 5);*/
 	SOCKET s = startServer();
-	
 	while (true) {
+
 		// структура определяет удаленный адрес, с которым соединяется сокет
 		sockaddr_in remote_addr{};
 		int size{ sizeof(remote_addr) };
@@ -146,23 +137,19 @@ int main()
 		// receiving case 
 		int choice{};
 		int len{4};
-        choice = (int)receive (s2,len);
-		/*if (recv(s2, (char*)&choice, 4, 0) < 0)
-		{
-			std::cout << "Recv failed." << std::endl;
-			continue;
-		}*/
+        receive(s2,(char*)&choice,len);
 
 		//case 1
 		if (choice == 1)
 		{
 			// принимаем данные
 			char emailBuf[4];
-			if (recv(s2, emailBuf, 4, 0) < 0)
+			receive(s2,emailBuf,4);
+			/*if (recv(s2, emailBuf, 4, 0) < 0)
 			{
 				std::cout << "Recv failed." << std::endl;
 				continue;
-			}
+			}*/
 
 			// for email length passing
 			const auto* len_pointer{ (const unsigned int*)&emailBuf };
@@ -170,11 +157,8 @@ int main()
 
 			char* email{ new char[intemailLen + 1] };
 
-			if (recv(s2, email, static_cast<int>(intemailLen), 0) < 0)
-			{
-				std::cout << "Recv failed." << std::endl;
-				continue;
-			}
+			receive(s2,email,static_cast<int>(intemailLen));
+
 			email[intemailLen] = '\0';
 			std::cout << "From client: " << email << std::endl;
 
@@ -183,11 +167,7 @@ int main()
 			std::cout << "Key -> " << key << "\n" << std::endl;
 
 			// Посылает данные на соединенный сокет
-			if (send(s2, key.c_str(), key.length(), 0) < 0)
-			{
-				std::cout << "Send failed." << std::endl;
-				continue;
-			}
+			sending(s2, (char*)key.c_str(), key.length());
 
 			// write email to file
 			writeToFile(email, key, intemailLen);
@@ -199,44 +179,30 @@ int main()
 		//case 2
 		else if (choice == 2)
 		{
-			char emailBuf[4], pass[26];
-			if (recv(s2, emailBuf, 4, 0) < 0)
-			{
-				std::cout << "Recv failed" << std::endl;
-				continue;
-			}
+			char emailBuf[4];
+			unsigned char pass[26]{};
+			receive(s2,emailBuf,4);
 
 			// for email length passing
 			const auto* len_pointer{ (const unsigned int*)&emailBuf };
 			unsigned int intemailLen{ *len_pointer };
 
 			char* email{ new char[intemailLen + 1] };
-	
-			if (recv(s2, email, static_cast<int>(intemailLen), 0) < 0)
-			{
-				std::cout << "Recv failed." << std::endl;
-				continue;
-			}
+
+			receive(s2,email, static_cast<int>(intemailLen));
 			email[intemailLen] = '\0';
 			std::cout << "From client: email: " << email << std::endl;
 
-			if (recv(s2, pass, 25, 0) < 0)
-			{
-				std::cout << "Recv failed." << std::endl;
-				continue;
-			}
-			pass[25] = '\0';
+			receive(s2, (char*)pass,25);
+			//pass[25] = '\0';
 			std::cout << "From client: password: " << pass << std::endl;
 
-			char result{ checking(email, pass) };
+			char result{ checking(email, (char*)pass) };
 
 			// Cleaning char* email
 			clean(email);
 
-			if (send(s2, &result, 4, 0) < 0)
-			{
-				std::cout << "Send failed." << std::endl;
-			}
+			sending(s2,&result,4);
 		}
 
 		closesocket(s2);

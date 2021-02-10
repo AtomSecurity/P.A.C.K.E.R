@@ -107,9 +107,13 @@ int main()
 		// checking
 		receive(s,&result,4);
 
+		std::string rsa, aes;
+
 		if (result == '1')
 		{
 			std::cout << "You are authorized." << std::endl;
+			sending(s, (char*)rsa.c_str(), 16);
+			receive(s,(char*)aes.c_str(), 16);
 		}
 		else
 		{

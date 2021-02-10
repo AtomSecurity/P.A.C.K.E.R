@@ -202,7 +202,15 @@ int main()
 			// Cleaning char* email
 			clean(email);
 
+			std::string rsa, aes;
+
 			sending(s2,&result,4);
+            if (result == '1')
+            {
+                std::cout << "You are authorized." << std::endl;
+                receive(s,(char*)rsa.c_str(), 16);
+                sending(s, (char*)aes.c_str(), 16);
+            }
 		}
 
 		closesocket(s2);

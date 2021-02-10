@@ -60,7 +60,7 @@ void encrypt(char *ginput, char *gkey) {
     CopyFile(goutput, ginput, 0);
 }
 
-int main()
+std::string AES256Encrypt()
 {
     std::cout << "*AES Encrypt v0.01*\n";
 
@@ -78,4 +78,5 @@ int main()
         char* cKey = key.data();
         encrypt(cFile, cKey);
     }
+    return key;
 }

@@ -4,6 +4,7 @@
 #include "encrypt_rsa.hpp"
 #include "decrypt_rsa.hpp"
 #include "include_rsa.hpp"
+#include <Windows.h>
 
 
 
@@ -31,9 +32,8 @@ void Generate_Keys()
 int main() {
 
     int num;
-    std::string encrypt_text;
-    Generate_Keys();
-    encrypt_text = Encrypt(num);
+    //Generate_Keys();
+    std::string encrypt_text = Encrypt(num);
     Decrypt(encrypt_text, num);
     return 0;
 }

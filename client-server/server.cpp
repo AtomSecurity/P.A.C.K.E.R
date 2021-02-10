@@ -77,13 +77,13 @@ SOCKET startServer()
 	return s;
 }
 
-void clean(char* arr)
+void clean(const char* arr)
 {
 	delete[] arr;
 	arr = nullptr;
 }
 
-void writeToFile(char* email, std::string key, unsigned int intemailLen)
+void writeToFile(char* email, std::string_view key, unsigned int intemailLen)
 {
 	std::fstream file("key_list.txt", std::ios::app);
 	file.seekg(0, std::ios_base::end); //Стать в конец файла
@@ -102,12 +102,13 @@ void writeToFile(char* email, std::string key, unsigned int intemailLen)
 	file.close();
 }
 
-void receive(SOCKET s, char* toRreceive, int len)
+int receive(SOCKET s, char* toReceive, int len)
 {
-    if (recv(s, toRreceive, len, 0) < 0) {
+    if (recv(s, toReceive, len, 0) < 0) {
         std::cout << "Recv failed" << std::endl;
-        exit(1);
+        return 1;
     }
+    return 0;
 }
 
 void sending(SOCKET s, char* toSend, int len)
@@ -116,7 +117,6 @@ void sending(SOCKET s, char* toSend, int len)
     if (status < 0)
     {
         std::cout << "Send failed" << std::endl;
-        exit(1);
     }
 }
 
@@ -137,14 +137,22 @@ int main()
 		// receiving case 
 		int choice{};
 		int len{4};
-        receive(s2,(char*)&choice,len);
+        int failure = receive(s2,(char*)&choice,len);
+        if (failure)
+        {
+            continue;
+        }
 
 		//case 1
 		if (choice == 1)
 		{
 			// принимаем данные
 			char emailBuf[4];
-			receive(s2,emailBuf,4);
+			failure = receive(s2,emailBuf,4);
+			if (failure)
+            {
+                continue;
+            }
 			/*if (recv(s2, emailBuf, 4, 0) < 0)
 			{
 				std::cout << "Recv failed." << std::endl;
@@ -157,7 +165,11 @@ int main()
 
 			char* email{ new char[intemailLen + 1] };
 
-			receive(s2,email,static_cast<int>(intemailLen));
+			failure = receive(s2,email,static_cast<int>(intemailLen));
+			if (failure)
+            {
+                continue;
+            }
 
 			email[intemailLen] = '\0';
 			std::cout << "From client: " << email << std::endl;
@@ -181,7 +193,11 @@ int main()
 		{
 			char emailBuf[4];
 			unsigned char pass[26]{};
-			receive(s2,emailBuf,4);
+			failure = receive(s2,emailBuf,4);
+			if (failure)
+            {
+			    continue;
+            }
 
 			// for email length passing
 			const auto* len_pointer{ (const unsigned int*)&emailBuf };
@@ -189,11 +205,15 @@ int main()
 
 			char* email{ new char[intemailLen + 1] };
 
-			receive(s2,email, static_cast<int>(intemailLen));
+			failure = receive(s2,email, static_cast<int>(intemailLen));
+			if (failure)
+			    continue;
 			email[intemailLen] = '\0';
 			std::cout << "From client: email: " << email << std::endl;
 
-			receive(s2, (char*)pass,25);
+			failure = receive(s2, (char*)pass,25);
+			if (failure)
+			    continue;
 			//pass[25] = '\0';
 			std::cout << "From client: password: " << pass << std::endl;
 
@@ -205,10 +225,13 @@ int main()
 			std::string rsa, aes;
 
 			sending(s2,&result,4);
-            if (result == '1')
-            {
+            if (result == '1') {
                 std::cout << "You are authorized." << std::endl;
-                receive(s,(char*)rsa.c_str(), 16);
+                failure = receive(s, (char *) rsa.c_str(), 16);
+                if (failure)
+                {
+                    continue;
+                }
                 sending(s, (char*)aes.c_str(), 16);
             }
 		}

@@ -1,0 +1,6 @@
+#ifndef AES256ENCRYPT_HPP
+#define AES256ENCRYPT_HPP
+
+std::string AES256Encrypt();
+
+#endif //AES256ENCRYPT_HPP

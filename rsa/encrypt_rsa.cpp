@@ -9,8 +9,8 @@ std::string Encrypt(int& num) {
     std::string str;
     std::getline(std::cin, str);
 
-    auto plain_text_sender{new unsigned char[str.length() + 1]{}};
-    unsigned char cipher_text[256]{};
+    unsigned char plain_text_sender[17] {};
+    unsigned char cipher_text[256] {};
 
     std::copy(str.begin(), str.end(), plain_text_sender);
 
@@ -26,17 +26,14 @@ std::string Encrypt(int& num) {
 
     std::string encrypt_text;
 
-    for(unsigned char i : cipher_text)
+    for (unsigned char i : cipher_text)
     {
         encrypt_text += i;
-        printf("%x", i);
+        //printf("%x", i);
+        std::cout << std::hex << static_cast<int>(i);
     }
 
     std::cout << std::endl;
-
-    delete[] plain_text_sender;
-    plain_text_sender = nullptr;
-
     return encrypt_text;
 }
 

@@ -5,7 +5,7 @@ project(P_A_C_K_E_R)
 set(CMAKE_CXX_STANDARD 17)
 
 # main file
-add_executable(packer main.cpp loader/loader.cpp injector/injector.cpp resources/resources.rc error-wrapper/error.cpp aes256/aes256decrypt.cpp aes256/aes256.cpp)
+add_executable(packer main.cpp loader/loader.cpp injector/injector.cpp resources/resources.rc error-wrapper/error.cpp aes256/aes256encrypt.cpp aes256/aes256decrypt.cpp aes256/aes256.cpp)
 
 # client-server
 add_executable(client client-server/client.cpp)
@@ -19,10 +19,7 @@ add_library(security SHARED dll/security.cpp)
 add_library(thread SHARED dll/thread.cpp)
 
 # rsa
-add_executable(rsa rsa.cpp)
-
-# aes
-add_executable(aes256-encrypt aes256/aes256encrypt.cpp aes256/aes256.cpp)
+add_executable(rsa rsa/generate_key_rsa.cpp rsa/encrypt_rsa.cpp rsa/decrypt_rsa.cpp)
 
 # openssl
 find_package(OpenSSL REQUIRED)

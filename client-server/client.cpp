@@ -9,9 +9,9 @@
 #pragma comment(lib, "Wsock32.lib")
 #pragma comment(lib, "Ws2_32.lib")
 
-void receive(SOCKET s, char* toRreceive, int len)
+void receive(SOCKET s, char* toReceive, int len)
 {
-    if (recv(s, toRreceive, len, 0) < 0) {
+    if (recv(s, toReceive, len, 0) < 0) {
         std::cout << "Recv failed" << std::endl;
         exit(1);
     }
@@ -54,8 +54,7 @@ int main()
 	std::cin >> choice;
 
 	// sending case
-	int len{4};
-    sending(s, (char *) &choice, len);
+    sending(s, (char *) &choice, 4);
 	
 	// case 1, getting key
 	if (choice == 1)
@@ -108,12 +107,13 @@ int main()
 		receive(s,&result,4);
 
 		std::string rsa, aes;
+		// ОТКРОЙ ФАЙЛ rsa и передай из него строку
 
 		if (result == '1')
 		{
 			std::cout << "You are authorized." << std::endl;
 			sending(s, (char*)rsa.c_str(), 16);
-			receive(s,(char*)aes.c_str(), 16);
+			receive(s, (char*)aes.c_str(), 16);
 		}
 		else
 		{

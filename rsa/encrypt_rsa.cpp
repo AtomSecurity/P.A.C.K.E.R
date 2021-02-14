@@ -37,7 +37,6 @@ std::string Encrypt(std::string text) {
         out << encrypt_text;
     }
     out.close();
-
     return encrypt_text;
 }
 

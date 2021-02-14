@@ -22,6 +22,7 @@ void Decrypt(std::string encrypt_text)
     RSA_private_decrypt(256, cipher_text, plain_text_receiver, rsaPrivateKey, RSA_PKCS1_PADDING);
 
     printf("%s", plain_text_receiver);
+
 }
 
 

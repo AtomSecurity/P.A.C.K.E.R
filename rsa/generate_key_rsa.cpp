@@ -1,11 +1,9 @@
-#include <openssl/rsa.h>
 #include <iostream>
+#include <openssl/rsa.h>
 #include <openssl/pem.h>
 #include "encrypt_rsa.hpp"
 #include "decrypt_rsa.hpp"
 #include "include_rsa.hpp"
-#include <Windows.h>
-
 
 
 void Generate_Keys()
@@ -29,11 +27,14 @@ void Generate_Keys()
     PEM_write_bio_RSAPrivateKey(bp_private, key, nullptr, nullptr, 0, nullptr, nullptr);
 }
 
+
 int main() {
 
-    int num;
+    std::string text;
+    std::cin >> text;
+    std::string encrypt_text;
     //Generate_Keys();
-    std::string encrypt_text = Encrypt(num);
-    Decrypt(encrypt_text, num);
+    encrypt_text = Encrypt(text);
+    Decrypt(encrypt_text);
     return 0;
 }

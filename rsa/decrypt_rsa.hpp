@@ -1,4 +1,4 @@
-#ifndef DECRYPT_RSA
-#define DECRYPT_RSA
-int Decrypt(std::string encrypt_text, int num);
+#ifndef DECRYPT_RSA_HPP
+#define DECRYPT_RSA_HPP
+void Decrypt(std::string encrypt_text);
 #endif

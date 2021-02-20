@@ -4,12 +4,17 @@ project(P_A_C_K_E_R)
 # setting С++ 17 standard
 set(CMAKE_CXX_STANDARD 17)
 
+include_directories("C:/Program Files/OpenSSL-Win64/include")
+link_directories("C:/Program Files/OpenSSL-Win64/lib")
+
 # main file
 add_executable(packer main.cpp loader/loader.cpp injector/injector.cpp resources/resources.rc error-wrapper/error.cpp aes256/aes256encrypt.cpp aes256/aes256decrypt.cpp aes256/aes256.cpp)
 
 # client-server
-add_executable(client client-server/client.cpp)
-add_executable(server client-server/server.cpp)
+add_executable(client client-server/client.cpp rsa/encrypt_rsa.cpp)
+add_executable(server client-server/server.cpp rsa/decrypt_rsa.cpp)
+target_link_libraries(client libcrypto)
+target_link_libraries(server libcrypto)
 
 # strencrypt
 add_executable(strencrypt string-encryption/strencrypt.cpp)

@@ -4,6 +4,8 @@
 #include <WS2tcpip.h>
 #include <cstdlib>
 #include <string>
+#include "../rsa/include_rsa.hpp"
+#include "../rsa/encrypt_rsa.hpp"
 #include "../string-encryption/strdecrypt.hpp"
 
 #pragma comment(lib, "Wsock32.lib")
@@ -27,26 +29,33 @@ void sending(SOCKET s, char* toSend, int len)
     }
 }
 
+SOCKET begining()
+{
+    WORD wVersionRequested{ MAKEWORD(2, 2) };
+    WSADATA wsaData;
+    WSAStartup(wVersionRequested, &wsaData);
+    struct sockaddr_in peer {};
+    peer.sin_family = AF_INET;
+    peer.sin_port = htons(5555);
+
+    // as client and server are on the same computer, write the address 127.0.0.1
+    peer.sin_addr.s_addr;
+    InetPton(AF_INET, L"127.0.0.1", &peer.sin_addr.s_addr);
+
+    // create socket
+    SOCKET s {socket(AF_INET, SOCK_STREAM, 0)};
+
+    // send a connection open request
+    int requestStatus { connect(s, (struct sockaddr*) &peer, sizeof(peer)) };
+
+    return s;
+}
+
 int main()
 {
-	WORD wVersionRequested{ MAKEWORD(2, 2) };
-	WSADATA wsaData;
-	WSAStartup(wVersionRequested, &wsaData);
-	struct sockaddr_in peer {};
-	peer.sin_family = AF_INET;
-	peer.sin_port = htons(5555);
+    SOCKET s = begining();
 
-	// т.к. клиент и сервер на одном компьютере, пишем адрес 127.0.0.1
-	peer.sin_addr.s_addr;
-	InetPton(AF_INET, L"127.0.0.1", &peer.sin_addr.s_addr);
-
-	//создаем сокет
-	SOCKET s {socket(AF_INET, SOCK_STREAM, 0)};
-
-	//посылаем запрос на открытие соединения
-	int requestStatus { connect(s, (struct sockaddr*) &peer, sizeof(peer)) };
-
-	std::string email;
+    std::string email;
 	char secretKey[26];
 
 	int choice;
@@ -71,9 +80,8 @@ int main()
 
         sending(s, (char*)email.c_str(), email.length());
 
-		// принимаем данные
+		// receiving data
 		receive(s, secretKey, sizeof(secretKey));
-        secretKey[25] = '\0';
 
 		std::cout<<"Your key: "<<secretKey<<std::endl;
 	}
@@ -94,7 +102,6 @@ int main()
 		const unsigned int len{ static_cast<unsigned int>(email.length()) };
 		const char* emailBuf{ (const char*)&len };
 
-		//int tmp{4};
 		sending(s,(char*)emailBuf,4);
 
 		sending(s,(char*)email.c_str(), email.length());
@@ -114,6 +121,10 @@ int main()
 			std::cout << "You are authorized." << std::endl;
 			sending(s, (char*)rsa.c_str(), 16);
 			receive(s, (char*)aes.c_str(), 16);
+            std::string aesKey{"plm122345"};
+            std::string enc_string = Encrypt(aesKey);
+            sending(s, (char*)aesKey.c_str(), aesKey.length());
+
 		}
 		else
 		{

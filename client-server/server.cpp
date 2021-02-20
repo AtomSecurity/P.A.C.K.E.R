@@ -5,6 +5,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
+#include "../rsa/include_rsa.hpp"
+#include "../rsa/decrypt_rsa.hpp"
 
 #pragma comment(lib,"Wsock32.lib")
 
@@ -122,6 +124,7 @@ void sending(SOCKET s, char* toSend, int len)
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
+
 int main()
 {
 	SOCKET s = startServer();
@@ -224,9 +227,11 @@ int main()
 
 			std::string rsa, aes;
 
-			sending(s2,&result,4);
+			sending(s2, &result,4);
             if (result == '1') {
                 std::cout << "You are authorized." << std::endl;
+                char aesEnc[256]{};
+                receive(s2, aesEnc, 256);
                 failure = receive(s, (char *) rsa.c_str(), 16);
                 if (failure)
                 {

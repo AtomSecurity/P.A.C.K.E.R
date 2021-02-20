@@ -1,5 +1,4 @@
 #ifndef ENCRYPT_RSA
 #define ENCRYPT_RSA
-std::string Encrypt(std::string text);
-
+std::string Encrypt(int& num);
 #endif

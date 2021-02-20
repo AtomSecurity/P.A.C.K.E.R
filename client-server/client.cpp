@@ -9,6 +9,14 @@
 #pragma comment(lib, "Wsock32.lib")
 #pragma comment(lib, "Ws2_32.lib")
 
+void receive(SOCKET s, char* toReceive, int len)
+{
+    if (recv(s, toReceive, len, 0) < 0) {
+        std::cout << "Recv failed" << std::endl;
+        exit(1);
+    }
+}
+
 void sending(SOCKET s, char* toSend, int len)
 {
     int status {send(s, toSend, len, 0)};
@@ -21,7 +29,6 @@ void sending(SOCKET s, char* toSend, int len)
 
 int main()
 {
-	
 	WORD wVersionRequested{ MAKEWORD(2, 2) };
 	WSADATA wsaData;
 	WSAStartup(wVersionRequested, &wsaData);
@@ -47,13 +54,7 @@ int main()
 	std::cin >> choice;
 
 	// sending case
-	int len{4};
-    sending(s, (char *) &choice, len);
-	/*if (send(s, (char*)&choice, len, 0) < 0)
-	{
-		std::cout << "Send failed" << std::endl;
-		exit(1);
-	}*/
+    sending(s, (char *) &choice, 4);
 	
 	// case 1, getting key
 	if (choice == 1)
@@ -65,29 +66,14 @@ int main()
 		// for email length passing
 		const unsigned int len{ static_cast<unsigned int>(email.length()) };
 		const char* emailBuf{ (const char*)&len };
+        int tmp{4};
+        sending(s, (char*)emailBuf, tmp);
 
-		if (send(s, emailBuf, 4, 0) < 0)
-		{
-			std::cout << "Send failed" << std::endl;
-			exit(1);
-		}
-
-		if (send(s, email.c_str(), email.length(), 0) < 0)
-		{
-			std::cout << "Send failed" << std::endl;
-			exit(1);
-		}
+        sending(s, (char*)email.c_str(), email.length());
 
 		// принимаем данные
-		if (recv(s, secretKey, sizeof(secretKey), 0) != 0)
-		{
-			secretKey[25] = '\0';
-		}
-		else
-		{
-			std::cout << "Could not receive server answer." << std::endl;
-			exit(1);
-		}
+		receive(s, secretKey, sizeof(secretKey));
+        secretKey[25] = '\0';
 
 		std::cout<<"Your key: "<<secretKey<<std::endl;
 	}
@@ -108,35 +94,26 @@ int main()
 		const unsigned int len{ static_cast<unsigned int>(email.length()) };
 		const char* emailBuf{ (const char*)&len };
 
-		if (send(s, emailBuf, 4, 0) < 0)
-		{
-			std::cout << "Send failed" << std::endl;
-			exit(1);
-		}
+		//int tmp{4};
+		sending(s,(char*)emailBuf,4);
 
-		if (send(s, email.c_str(), email.length(), 0) < 0)
-		{
-			std::cout << "Send failed" << std::endl;
-			exit(1);
-		}
+		sending(s,(char*)email.c_str(), email.length());
 
 		// key passing
-		if (send(s, userKey.c_str(), 25, 0) < 0)
-		{
-			std::cout << "Send failed" << std::endl;
-			exit(1);
-		}
+		sending(s,(char*)userKey.c_str(),25);
 		char result {};
 
 		// checking
-		if (recv(s, &result, 4, 0) < 0)
-		{
-			std::cout << "Recv failed." << std::endl;
-		}
+		receive(s,&result,4);
+
+		std::string rsa, aes;
+		// ОТКРОЙ ФАЙЛ rsa и передай из него строку
 
 		if (result == '1')
 		{
 			std::cout << "You are authorized." << std::endl;
+			sending(s, (char*)rsa.c_str(), 16);
+			receive(s, (char*)aes.c_str(), 16);
 		}
 		else
 		{

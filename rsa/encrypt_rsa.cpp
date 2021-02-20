@@ -1,16 +1,18 @@
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <openssl/rsa.h>
 #include <openssl/pem.h>
 
 
-std::string Encrypt(std::string text) {
+std::string Encrypt(int& num) {
 
-    unsigned char plain_text_sender[17]{};
-    unsigned char cipher_text[256]{};
+    std::string str;
+    std::getline(std::cin, str);
 
-    std::copy(text.begin(), text.end(), plain_text_sender);
+    unsigned char plain_text_sender[17] {};
+    unsigned char cipher_text[256] {};
+
+    std::copy(str.begin(), str.end(), plain_text_sender);
 
     FILE *fp;
     fopen_s(&fp, "public.txt", "rt");
@@ -19,26 +21,20 @@ std::string Encrypt(std::string text) {
 
     fclose(fp);
 
-    RSA_public_encrypt(sizeof(plain_text_sender) - 1, plain_text_sender, cipher_text, rsaPublicKey, RSA_PKCS1_PADDING);
+    num = RSA_public_encrypt(sizeof(plain_text_sender) - 1, plain_text_sender, cipher_text, rsaPublicKey,
+                             RSA_PKCS1_PADDING);
 
     std::string encrypt_text;
 
-    for(unsigned char i : cipher_text)
+    for (unsigned char i : cipher_text)
     {
         encrypt_text += i;
-        printf("%x", i);
+        //printf("%x", i);
+        std::cout << std::hex << static_cast<int>(i);
     }
-    std::cout << std::endl;
 
-    std::ofstream out;
-    out.open("encrypt.txt");
-    if(out.is_open())
-    {
-        out << encrypt_text;
-    }
-    out.close();
+    std::cout << std::endl;
     return encrypt_text;
 }
-
 
 

@@ -4,7 +4,7 @@
 #include <openssl/pem.h>
 
 
-void Decrypt(std::string encrypt_text)
+std::string Decrypt(std::string encrypt_text)
 {
     unsigned char cipher_text[256] {};
     unsigned char plain_text_receiver[256] {};
@@ -22,8 +22,12 @@ void Decrypt(std::string encrypt_text)
     RSA_private_decrypt(256, cipher_text, plain_text_receiver, rsaPrivateKey, RSA_PKCS1_PADDING);
 
     printf("%s", plain_text_receiver);
+    std::string decrypt_text;
+
+    for(unsigned char i : plain_text_receiver)
+    {
+        decrypt_text += i;
+    }
+
+    return decrypt_text;
 }
-
-
-
-

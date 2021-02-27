@@ -3,8 +3,8 @@
 #include <string>
 #include <WinSock2.h>
 #include <iostream>
-#include <cstdlib>
 #include <fstream>
+#include <string_view>
 #include "../rsa/include_rsa.hpp"
 #include "../rsa/decrypt_rsa.hpp"
 
@@ -49,12 +49,12 @@ char checking(std::string_view findEmail, std::string_view findPass)
 			}
 			if (tmp == 2)
 			{
-				file.close(); // обязательно закрыли
+				file.close();
 				std::cout << "You were verified." << std::endl;
 				return '1';
 			}
 		}
-		file.close(); // обязательно закрыли
+		file.close();
 		return '0';
 	}
 }
@@ -85,10 +85,10 @@ void clean(const char* arr)
 	arr = nullptr;
 }
 
-void writeToFile(char* email, std::string_view key, unsigned int intemailLen)
+void writeToFile(char* email, std::string_view key, unsigned int intEmailLen)
 {
 	std::fstream file("key_list.txt", std::ios::app);
-	file.seekg(0, std::ios_base::end); //Стать в конец файла
+	file.seekg(0, std::ios_base::end); // put pointer to the end of file
 	if (!file)
 	{
 		std::cout << "Error, file is not opened\n\n";
@@ -97,13 +97,14 @@ void writeToFile(char* email, std::string_view key, unsigned int intemailLen)
 	{
 		std::cout << "File is opened!\n\n";
 	}
-	file << std::string(email, intemailLen);
+	file << std::string(email, intEmailLen);
 
-	// write key to file
-	file << " " << key << std::endl;
-	file.close();
+    // write key to file
+    file << " " << key << std::endl;
+    file.close();
 }
 
+// why func is not void?
 int receive(SOCKET s, char* toReceive, int len)
 {
     if (recv(s, toReceive, len, 0) < 0) {
@@ -113,13 +114,15 @@ int receive(SOCKET s, char* toReceive, int len)
     return 0;
 }
 
-void sending(SOCKET s, char* toSend, int len)
+int sending(SOCKET s, char* toSend, int len)
 {
     int status {send(s, toSend, len, 0)};
     if (status < 0)
     {
         std::cout << "Send failed" << std::endl;
+        return 1;
     }
+    return 0;
 }
 
 #pragma clang diagnostic push
@@ -130,17 +133,16 @@ int main()
 	SOCKET s = startServer();
 	while (true) {
 
-		// структура определяет удаленный адрес, с которым соединяется сокет
+        // the structure defines the remote address to which the socket connects
 		sockaddr_in remote_addr{};
 		int size{ sizeof(remote_addr) };
 
-		// инитиялизируем соединение при запросе клиента
+        // initialize the connection when the client requests
 		SOCKET s2{ accept(s, (struct sockaddr*)&remote_addr, &size) };
 
 		// receiving case 
 		int choice{};
-		int len{4};
-        int failure = receive(s2,(char*)&choice,len);
+        int failure = receive(s2,(char*)&choice,4);
         if (failure)
         {
             continue;
@@ -149,18 +151,13 @@ int main()
 		//case 1
 		if (choice == 1)
 		{
-			// принимаем данные
+            // receiving case
 			char emailBuf[4];
 			failure = receive(s2,emailBuf,4);
 			if (failure)
             {
                 continue;
             }
-			/*if (recv(s2, emailBuf, 4, 0) < 0)
-			{
-				std::cout << "Recv failed." << std::endl;
-				continue;
-			}*/
 
 			// for email length passing
 			const auto* len_pointer{ (const unsigned int*)&emailBuf };
@@ -181,8 +178,12 @@ int main()
 			std::string key = generateRandomString();
 			std::cout << "Key -> " << key << "\n" << std::endl;
 
-			// Посылает данные на соединенный сокет
-			sending(s2, (char*)key.c_str(), key.length());
+            failure = sending(s2, (char*)key.c_str(), key.length());
+            if (failure)
+            {
+                continue;
+            }
+
 
 			// write email to file
 			writeToFile(email, key, intemailLen);
@@ -217,33 +218,57 @@ int main()
 			failure = receive(s2, (char*)pass,25);
 			if (failure)
 			    continue;
-			//pass[25] = '\0';
+
 			std::cout << "From client: password: " << pass << std::endl;
 
+            //checking if entered email and password are valid
 			char result{ checking(email, (char*)pass) };
 
 			// Cleaning char* email
 			clean(email);
 
-			std::string rsa, aes;
+            int aesLen{256};
+			std::string aesDec, aesEncStr;
+			char aesEnc[256]{};
 
-			sending(s2, &result,4);
+            failure = sending(s2, &result,4);
+            if (failure)
+            {
+                continue;
+            }
+
             if (result == '1') {
                 std::cout << "You are authorized." << std::endl;
-                char aesEnc[256]{};
-                receive(s2, aesEnc, 256);
-                failure = receive(s, (char *) rsa.c_str(), 16);
+
+                failure = receive(s2, aesEnc, aesLen);
                 if (failure)
-                {
                     continue;
+
+                //переделать aesEnc в string
+                for(unsigned char i : aesEnc)
+                {
+                    aesEncStr += i;
                 }
-                sending(s, (char*)aes.c_str(), 16);
+
+                //aesDec = Decrypt(aesEncStr);
+                std::cout << std::endl;
+                for (auto& i : aesEncStr)
+                {
+                    std::cout << i;
+                }
+                std::cout << std::endl;
+
+
+               // for (auto& i : aesDec)
+                //{
+                //    std::cout << i;
+               // }
+               // std::cout << std::endl;
             }
 		}
 
 		closesocket(s2);
 	}
-	// WSACleanup(); Unreachable code
 }
 #pragma clang diagnostic pop
 

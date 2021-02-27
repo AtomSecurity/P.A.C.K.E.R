@@ -30,11 +30,10 @@ void Generate_Keys()
 
 int main() {
 
-    std::string text;
-    std::cin >> text;
-    std::string encrypt_text;
-    //Generate_Keys();
-    encrypt_text = Encrypt(text);
-    Decrypt(encrypt_text);
-    return 0;
+    //std::string text;
+    //std::cin >> text;
+    //std::string encrypt_text;
+    Generate_Keys();
+    //encrypt_text = Encrypt(text);
+    //Decrypt(encrypt_text);
 }

@@ -33,10 +33,16 @@ void sending(SOCKET s, char* toSend, int len)
     }
 }
 
-void encryptToFile (std::string aesEnc, std::string aesKey)
+void encryptToFile (std::string aesKey)
 {
 
-    aesEnc = Encrypt(aesKey);
+    unsigned char* aesEnc = Encrypt(aesKey);
+    std::cout << "Printing %X:\n";
+    for (size_t i{}; i < 256; ++i)
+    {
+        printf("%x", aesEnc[i]);
+    }
+    std::cout << "\n\n";
     /*//std::cout << "Aes encrypted text(before writing to file):\n" << aesEnc << std::endl;
 
     struct stat results {};
@@ -57,22 +63,23 @@ void encryptToFile (std::string aesEnc, std::string aesKey)
     oFile.close();*/
 
 
-    std::fstream file("AesKey.txt");
-    std::cout << "Aes encrypted text(before writing to file):\n";
-    for (size_t i {}; i < aesEnc.length(); ++i)
-    {
-        std::cout << aesEnc[i];
-    }
-    std::cout << std::endl;
-    if(file.is_open())
-    {
-        file.write(aesEnc.c_str(), 256);
-        //file << aesEnc;
-    }
-    else
-        std::cout<<"File was`t opened";
-
-    file.close();
+//    std::fstream file("AesKey.txt");
+//    std::cout << "Aes encrypted text(before writing to file):\n";
+//    for (unsigned int i : aesEnc)
+//    {
+//        printf("%x", aesEnc[i]);
+//    }
+//    std::cout << std::endl;
+//    if(file.is_open())
+//    {
+//        file.write(aesEnc.c_str(), 256);
+//        //file << aesEnc;
+//    }
+//    else
+//        std::cout<<"File was`t opened";
+//
+//    file.close();
+//
 }
 
 
@@ -204,7 +211,6 @@ int main()
 		receive(s,&result,4);
 
 		int aesLen{256};
-		std::string aesEnc;
 
 		// ОТКРОЙ ФАЙЛ rsa и передай из него строку
 
@@ -221,7 +227,7 @@ int main()
             std::string aesKey{"plm122345"};
 
             // func 1
-            encryptToFile(aesEnc, aesKey);
+            encryptToFile(aesKey);
 
             // func 2
             readFileAndSend(s,aesLen);

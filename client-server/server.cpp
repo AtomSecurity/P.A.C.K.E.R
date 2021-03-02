@@ -87,7 +87,11 @@ void clean(const char* arr)
 
 void writeToFile(char* email, std::string_view key, unsigned int intEmailLen)
 {
-	std::fstream file("key_list.txt", std::ios::app);
+	std::fstream file;
+	file.open("key_list");
+	file.close();
+
+	file.open("key_list.txt", std::ios::app);
 	file.seekg(0, std::ios_base::end); // put pointer to the end of file
 	if (!file)
 	{
@@ -107,7 +111,9 @@ void writeToFile(char* email, std::string_view key, unsigned int intEmailLen)
 // why func is not void?
 int receive(SOCKET s, char* toReceive, int len)
 {
-    if (recv(s, toReceive, len, 0) < 0) {
+    int status {recv(s, toReceive, len, 0)};
+    if (status < 0)
+    {
         std::cout << "Recv failed" << std::endl;
         return 1;
     }
@@ -227,10 +233,6 @@ int main()
 			// Cleaning char* email
 			clean(email);
 
-            int aesLen{256};
-			std::string aesDec, aesEncStr;
-			char aesEnc[256]{};
-
             failure = sending(s2, &result,4);
             if (failure)
             {
@@ -240,30 +242,25 @@ int main()
             if (result == '1') {
                 std::cout << "You are authorized." << std::endl;
 
-                failure = receive(s2, aesEnc, aesLen);
+                std::string aesDec;
+                unsigned char aesEnc[256]{};
+
+                failure = receive(s2, (char *)aesEnc, 256);
                 if (failure)
+                {
+                    std::cout << "Receive error!" << std::endl;
                     continue;
-
-                //переделать aesEnc в string
-                for(unsigned char i : aesEnc)
-                {
-                    aesEncStr += i;
                 }
 
-                //aesDec = Decrypt(aesEncStr);
-                std::cout << std::endl;
-                for (auto& i : aesEncStr)
+                for (size_t i{}; i < 256; ++i)
                 {
-                    std::cout << i;
+                    printf("%x", aesEnc[i]);
                 }
-                std::cout << std::endl;
+                std::cout<<"\n";
 
-
-               // for (auto& i : aesDec)
-                //{
-                //    std::cout << i;
-               // }
-               // std::cout << std::endl;
+                aesDec = Decrypt(aesEnc);
+                std::cout<<"\n";
+                std::cout<<aesDec;
             }
 		}
 

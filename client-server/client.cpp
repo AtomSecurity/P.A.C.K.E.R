@@ -17,7 +17,9 @@
 
 void receive(SOCKET s, char* toReceive, int len)
 {
-    if (recv(s, toReceive, len, 0) < 0) {
+    int status {recv(s, toReceive, len, 0)};
+    if (status < 0)
+    {
         std::cout << "Recv failed" << std::endl;
         exit(1);
     }
@@ -35,95 +37,44 @@ void sending(SOCKET s, char* toSend, int len)
 
 void encryptToFile (std::string aesKey)
 {
-
     unsigned char* aesEnc = Encrypt(aesKey);
-    std::cout << "Printing %X:\n";
-    for (size_t i{}; i < 256; ++i)
+
+    std::ofstream file;
+    //delete file contents
+    file.open("AesKey.txt", std::ofstream::out | std::ofstream::trunc);
+    file.close();
+
+    //write to file
+    file.open("AesKey.txt", std::ios::out | std::ios::binary);
+    if(file.is_open())
     {
-        printf("%x", aesEnc[i]);
+        file.write((const char*)aesEnc, 256);
+        file.close();
     }
-    std::cout << "\n\n";
-    /*//std::cout << "Aes encrypted text(before writing to file):\n" << aesEnc << std::endl;
-
-    struct stat results {};
-    // Буффер (std::unique_ptr), динамически выделяется для char* на наш файл (чтобы считать его туда)
-    auto buffer = std::make_unique<char[]>(results.st_size);
-    std::ofstream nextFile;
-
-    // Снова открываю файл с привилегиями in, out, binary и записываю туда данные из моей переменной
-    nextFile.open("AesKey.txt", std::ios::in | std::ios::out | std::ios::binary);
-    nextFile.write(buffer.get(), results.st_size);
-
-    // Закрываю файл
-    nextFile.close();*/
-
-    /*std::ofstream oFile("AesKey.txt", std::ios::binary|std::ios::out);
-    //oFile.write((char*)&StringLength, sizeof(unsigned short int));
-    oFile.write(aesEnc.c_str(), aesEnc.size());
-    oFile.close();*/
-
-
-//    std::fstream file("AesKey.txt");
-//    std::cout << "Aes encrypted text(before writing to file):\n";
-//    for (unsigned int i : aesEnc)
-//    {
-//        printf("%x", aesEnc[i]);
-//    }
-//    std::cout << std::endl;
-//    if(file.is_open())
-//    {
-//        file.write(aesEnc.c_str(), 256);
-//        //file << aesEnc;
-//    }
-//    else
-//        std::cout<<"File was`t opened";
-//
-//    file.close();
-//
+    else
+        std::cout<<"File was`t opened";
 }
 
-
-/*static std::string Read(std::istream &stream, uint32_t count)
+void readFileAndSend (SOCKET s)
 {
-    std::string result(count, ' ');
-    stream.read(&result[0], count);
+    unsigned char aesEnc [256];
 
-    return result;
-}*/
-
-void readFileAndSend (SOCKET s, int aesLen)
-{
-    std::string aesEnc;
-    // Записываем длинну файла в results.st_size
-    struct stat results {};
-    if (stat("AesKey.txt", &results) != 0)
-    {
-        std::cout<<("Cannot get the file size!")<<std::endl;
+    std::ifstream myFile;
+    myFile.open("AesKey.txt", std::ios::in | std::ios::binary);
+    if (!myFile) {
+        std::cout<<"File was`t opened"<<std::endl;
+        return;
     }
-    // Буффер (std::unique_ptr), динамически выделяется для char* на наш файл (чтобы считать его туда)
-    auto buffer = std::make_unique<char[]>(256);
 
-
-    // Открываю fstream с полномочиями in, out, binary
-    std::fstream myFile;
-    myFile.open("AesKey.txt", std::ios::in | std::ios::out | std::ios::binary);
-    // Считываю бинарку в буффер, не забываю указывать size файла, и закрываю сам файл [buffer.get == char* buffer]
-    myFile.read(buffer.get(), 256);
+    //read from file
+    if (!myFile.read((char*)aesEnc, 256))
+    {
+        std::cout<<"File was`t read."<<std::endl;
+        return;
+    }
     myFile.close();
 
-    aesEnc = buffer.get();
-    std::cout << "\nAes encrypted (after reading from file):\n";
-    for (auto& i : aesEnc)
-    {
-        std::cout << i;
-    }
-    std::cout << std::endl;
-
-
-
-
-
-    sending(s, (char*)aesEnc.c_str(), aesLen);
+    sending(s, (char*) aesEnc, 256);
 
 }
 
@@ -210,27 +161,19 @@ int main()
 		// checking
 		receive(s,&result,4);
 
-		int aesLen{256};
-
-		// ОТКРОЙ ФАЙЛ rsa и передай из него строку
-
-		//std::fstream file("public.txt");
-        //записать с файла в переменную rsaPub ключ
-        //file.close();
-
 
 		if (result == '1')
 		{
 			std::cout << "You are authorized." << std::endl;
 
             // временная строка
-            std::string aesKey{"plm122345"};
+            std::string aesKey{"Nastya_molodets"};
 
             // func 1
             encryptToFile(aesKey);
 
             // func 2
-            readFileAndSend(s,aesLen);
+            readFileAndSend(s);
 
             std::cout<<"\nWell done!"<<std::endl;
 		}

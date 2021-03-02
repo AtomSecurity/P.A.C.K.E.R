@@ -21,13 +21,6 @@ unsigned char* Encrypt(std::string text) {
 
     RSA_public_encrypt(sizeof(plain_text_sender) - 1, plain_text_sender, cipher_text, rsaPublicKey, RSA_PKCS1_PADDING);
 
-    for (unsigned int i : cipher_text)
-    {
-        printf("%x", i);
-    }
-    std::cout << "\n\n";
-
-
     return cipher_text;
 }
 

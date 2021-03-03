@@ -242,7 +242,7 @@ int main()
             if (result == '1') {
                 std::cout << "You are authorized." << std::endl;
 
-                std::string aesDec;
+                std::string aesDec{};
                 unsigned char aesEnc[256]{};
 
                 failure = receive(s2, (char *)aesEnc, 256);
@@ -261,6 +261,16 @@ int main()
                 aesDec = Decrypt(aesEnc);
                 std::cout<<"\n";
                 std::cout<<aesDec;
+
+                failure = sending(s2, (char*)aesDec.c_str(), 256);
+                if (failure)
+                {
+                    std::cout << "Send error!" << std::endl;
+                    continue;
+                }
+
+
+
             }
 		}
 

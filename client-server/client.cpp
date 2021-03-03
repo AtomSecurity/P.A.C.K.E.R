@@ -5,9 +5,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
-
-#include <vector>
-
+//#include <vector>
 #include "../rsa/include_rsa.hpp"
 #include "../rsa/encrypt_rsa.hpp"
 #include "../string-encryption/strdecrypt.hpp"
@@ -76,6 +74,11 @@ void readFileAndSend (SOCKET s)
 
     sending(s, (char*) aesEnc, 256);
 
+    char aesDec[256];
+
+    receive(s, aesDec, 256);
+
+    std::cout<<aesDec<<std::endl;
 }
 
 SOCKET begining()
@@ -176,6 +179,7 @@ int main()
             readFileAndSend(s);
 
             std::cout<<"\nWell done!"<<std::endl;
+
 		}
 		else
 		{

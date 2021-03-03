@@ -4,10 +4,11 @@ project(P_A_C_K_E_R)
 # setting С++ 17 standard
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories("C:/Program Files/OpenSSL-Win64/include")
-link_directories("C:/Program Files/OpenSSL-Win64/lib")
+
 
 # openssl
+include_directories("C:/Program Files/OpenSSL-Win64/include")
+link_directories("C:/Program Files/OpenSSL-Win64/lib")
 find_package(OpenSSL REQUIRED)
 set(OPENSSL_USE_STATIC_LIBS TRUE)
 

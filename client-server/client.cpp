@@ -33,7 +33,7 @@ void sending(SOCKET s, char* toSend, int len)
     }
 }
 
-void encryptToFile (std::string aesKey)
+void encryptToFile(std::string aesKey)
 {
     unsigned char* aesEnc = Encrypt(aesKey);
 
@@ -53,7 +53,7 @@ void encryptToFile (std::string aesKey)
         std::cout<<"File was`t opened";
 }
 
-void readFileAndSend (SOCKET s)
+std::string readFileAndSend(SOCKET s)
 {
     unsigned char aesEnc [256];
 
@@ -61,14 +61,14 @@ void readFileAndSend (SOCKET s)
     myFile.open("AesKey.txt", std::ios::in | std::ios::binary);
     if (!myFile) {
         std::cout<<"File was`t opened"<<std::endl;
-        return;
+        exit(1);
     }
 
     //read from file
     if (!myFile.read((char*)aesEnc, 256))
     {
         std::cout<<"File was`t read."<<std::endl;
-        return;
+        exit(1);
     }
     myFile.close();
 
@@ -78,7 +78,7 @@ void readFileAndSend (SOCKET s)
 
     receive(s, aesDec, 256);
 
-    std::cout<<aesDec<<std::endl;
+    return aesDec;
 }
 
 SOCKET begining()
@@ -103,7 +103,7 @@ SOCKET begining()
     return s;
 }
 
-int main()
+std::string clientInit()
 {
     SOCKET s = begining();
 
@@ -134,7 +134,9 @@ int main()
 		// receiving data
 		receive(s, secretKey, sizeof(secretKey));
 
-		std::cout<<"Your key: "<<secretKey<<std::endl;
+		std::cout << "Your key: " << secretKey << std::endl;
+		std::getchar();
+		exit(0);
 	}
 
 	// case 2, checking key
@@ -170,16 +172,14 @@ int main()
 			std::cout << "You are authorized." << std::endl;
 
             // временная строка
-            std::string aesKey{"Nastya_molodets"};
+            //std::string aesKey{"Nastya_molodets"};
 
             // func 1
-            encryptToFile(aesKey);
+            //encryptToFile(aesKey);
 
             // func 2
-            readFileAndSend(s);
-
-            std::cout<<"\nWell done!"<<std::endl;
-
+            std::string aesDec {readFileAndSend(s)};
+            return aesDec;
 		}
 		else
 		{

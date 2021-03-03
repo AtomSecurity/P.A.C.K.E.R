@@ -69,8 +69,8 @@ std::string AES256Encrypt()
     files.emplace_back("security.dll");
     files.emplace_back("thread.dll");
 
-    // std::string key {generateRandomString()};
-    std::string key {"abcdefghijklmnop"};
+    std::string key {generateRandomString()};
+    // std::string key {"abcdefghijklmnop"};
 
     for (auto& file : files)
     {

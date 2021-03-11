@@ -5,7 +5,6 @@
 #include <cstdlib>
 #include <fstream>
 #include <string>
-//#include <vector>
 #include "../rsa/include_rsa.hpp"
 #include "../rsa/encrypt_rsa.hpp"
 #include "../string-encryption/strdecrypt.hpp"
@@ -120,7 +119,6 @@ std::string clientInit()
 	// case 1, getting key
 	if (choice == 1)
 	{
-
 		std::cout << "Enter your email to get a key -> ";
 		std::cin >> email;
 
@@ -131,12 +129,23 @@ std::string clientInit()
 
         sending(s, (char*)email.c_str(), email.length());
 
-		// receiving data
-		receive(s, secretKey, sizeof(secretKey));
+        //checking on the same email in file
+        int tmp{};
+        receive(s, (char *) &tmp, 4);
+        if(tmp == 1)
+        {
+            std::cout<<"Your are already have a key on this email. Try to verify it."<<std::endl;
+            exit(0);
+        }
+        else
+        {
+            // receiving data
+            receive(s, secretKey, sizeof(secretKey));
 
-		std::cout << "Your key: " << secretKey << std::endl;
-		std::getchar();
-		exit(0);
+            std::cout << "Your key: " << secretKey << std::endl;
+            std::getchar();
+            exit(0);
+        }
 	}
 
 	// case 2, checking key
@@ -184,8 +193,13 @@ std::string clientInit()
 		else
 		{
 			std::cout << "Try again." << std::endl;
+            return "Error";
 		}
 	}
+	else
+    {
+	    std::cout<<"You enter the wrong number. Try again."<<std::endl;
+    }
 
 	closesocket(s);
 	

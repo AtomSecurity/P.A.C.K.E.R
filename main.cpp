@@ -62,8 +62,9 @@ int main()
         return 0;
     }
     std::string aesDec {clientInit()};
+    if (aesDec == "Error")
+        exit(0);
     std::cout << "Aes key: " << aesDec << std::endl;
-
 
     // Loading the resource and launching .exe from it
     PROCESS_INFORMATION pi {loadResource(aesDec)};

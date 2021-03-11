@@ -108,7 +108,6 @@ void writeToFile(char* email, std::string_view key, unsigned int intEmailLen)
     file.close();
 }
 
-// why func is not void?
 int receive(SOCKET s, char* toReceive, int len)
 {
     int status {recv(s, toReceive, len, 0)};
@@ -131,13 +130,33 @@ int sending(SOCKET s, char* toSend, int len)
     return 0;
 }
 
+bool checkingEmailInFile(char* email) {
+    std::fstream file("key_list.txt"); // open file
+
+    while (!file.eof()) {
+        std::string readEmail, pass;
+
+        while (file >> readEmail >> pass) // reading file line by line
+        {
+            if (readEmail == email) {
+                std::cout << "Your are already have a key on this email." << std::endl;
+                file.close();
+                return true;
+            }
+        }
+        std::cout << "All right, pass" << std::endl;
+        file.close();
+        return false;
+    }
+}
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 
 int main()
 {
 	SOCKET s = startServer();
-	while (true) {
+	while (true)
+	{
 
         // the structure defines the remote address to which the socket connects
 		sockaddr_in remote_addr{};
@@ -157,7 +176,6 @@ int main()
 		//case 1
 		if (choice == 1)
 		{
-            // receiving case
 			char emailBuf[4];
 			failure = receive(s2,emailBuf,4);
 			if (failure)
@@ -180,19 +198,43 @@ int main()
 			email[intemailLen] = '\0';
 			std::cout << "From client: " << email << std::endl;
 
-			// Random key generation
-			std::string key = generateRandomString();
-			std::cout << "Key -> " << key << "\n" << std::endl;
-
-            failure = sending(s2, (char*)key.c_str(), key.length());
-            if (failure)
+			//checking on the same email in file
+			bool exist = checkingEmailInFile(email);
+            int tmp{};
+            if (exist)
             {
-                continue;
+                tmp = 1;
+                failure = sending(s2, (char*)&tmp, 4);
+                if (failure)
+                {
+                    continue;
+                }
+            }
+            else
+            {
+                tmp = 0;
+                failure = sending(s2, (char*)&tmp, 4);
+                if (failure)
+                {
+                    continue;
+                }
+                // Random key generation
+                std::string key = generateRandomString();
+                std::cout << "Key -> " << key << "\n" << std::endl;
+
+                failure = sending(s2, (char*)key.c_str(), key.length());
+                if (failure)
+                {
+                    continue;
+                }
+
+
+                // write email to file
+                writeToFile(email, key, intemailLen);
             }
 
 
-			// write email to file
-			writeToFile(email, key, intemailLen);
+
 
 			// Cleaning char* email
 			clean(email);

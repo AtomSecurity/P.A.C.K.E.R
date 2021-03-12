@@ -29,9 +29,10 @@ std::string generateRandomString(int max_length = 25)
 
 char checking(std::string_view findEmail, std::string_view findPass)
 {
-	std::fstream file("key_list.txt"); // открыли файл с текстом
+	std::fstream file("key_list.txt"); // open file
 
-	while (!file.eof()) {  // прочитали его и заполнили им строку
+	while (!file.eof())
+	{
 		std::string email, pass;
 
 		while (file >> email >> pass) // reading file line by line
@@ -66,15 +67,15 @@ SOCKET startServer()
 	WSADATA wsaData;
 	WSAStartup(wVersionRequested, &wsaData);
 
-	// создаем сокет
+	// create socket
 	SOCKET s{ socket(AF_INET, SOCK_STREAM, 0) };
 	struct sockaddr_in local {};
 	local.sin_family = AF_INET;
 	local.sin_port = htons(5555);
 	local.sin_addr.s_addr = htonl(INADDR_ANY);
-	// связываем сокет с адресом
+	// Connecting socket with address
 	int bindAddress{ bind(s, (struct sockaddr*)&local, sizeof(local)) };
-	// помещаем сокет в состояние прослушивания
+	// Put socket to a listening state
 	listen(s, 5);
 	return s;
 }
@@ -92,7 +93,7 @@ void writeToFile(char* email, std::string_view key, unsigned int intEmailLen)
 	file.close();
 
 	file.open("key_list.txt", std::ios::app);
-	file.seekg(0, std::ios_base::end); // put pointer to the end of file
+	file.seekg(0, std::ios_base::end); // Put pointer to the end of file
 	if (!file)
 	{
 		std::cout << "Error, file is not opened\n\n";
@@ -103,7 +104,7 @@ void writeToFile(char* email, std::string_view key, unsigned int intEmailLen)
 	}
 	file << std::string(email, intEmailLen);
 
-    // write key to file
+    // Write key to file
     file << " " << key << std::endl;
     file.close();
 }
@@ -130,25 +131,26 @@ int sending(SOCKET s, char* toSend, int len)
     return 0;
 }
 
-bool checkingEmailInFile(char* email) {
-    std::fstream file("key_list.txt"); // open file
+int checkingEmailInFile(char* email)
+{
+    std::fstream file("key_list.txt"); // Open file
 
     while (!file.eof()) {
         std::string readEmail, pass;
 
-        while (file >> readEmail >> pass) // reading file line by line
+        while (file >> readEmail >> pass) // Reading file line by line
         {
             if (readEmail == email) {
-                std::cout << "Your are already have a key on this email." << std::endl;
+                std::cout << "You`v already had a key on this email." << std::endl;
                 file.close();
-                return true;
+                return 1;
             }
         }
-        std::cout << "All right, pass" << std::endl;
         file.close();
-        return false;
+        return 0;
     }
 }
+
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 
@@ -157,39 +159,38 @@ int main()
 	SOCKET s = startServer();
 	while (true)
 	{
-
-        // the structure defines the remote address to which the socket connects
+        // The structure defines the remote address to which the socket connects
 		sockaddr_in remote_addr{};
 		int size{ sizeof(remote_addr) };
 
-        // initialize the connection when the client requests
+        // Initialize the connection when the client requests
 		SOCKET s2{ accept(s, (struct sockaddr*)&remote_addr, &size) };
 
-		// receiving case 
+		// Receiving case
 		int choice{};
-        int failure = receive(s2,(char*)&choice,4);
+        int failure = receive(s2, (char*)&choice, 4);
         if (failure)
         {
             continue;
         }
 
-		//case 1
+		// Case 1
 		if (choice == 1)
 		{
 			char emailBuf[4];
-			failure = receive(s2,emailBuf,4);
+			failure = receive(s2, emailBuf, 4);
 			if (failure)
             {
                 continue;
             }
 
-			// for email length passing
+			// For email length passing
 			const auto* len_pointer{ (const unsigned int*)&emailBuf };
 			unsigned int intemailLen{ *len_pointer };
 
 			char* email{ new char[intemailLen + 1] };
 
-			failure = receive(s2,email,static_cast<int>(intemailLen));
+			failure = receive(s2, email, static_cast<int>(intemailLen));
 			if (failure)
             {
                 continue;
@@ -198,26 +199,16 @@ int main()
 			email[intemailLen] = '\0';
 			std::cout << "From client: " << email << std::endl;
 
-			//checking on the same email in file
-			bool exist = checkingEmailInFile(email);
-            int tmp{};
-            if (exist)
+			// Checking on the same email in file
+			int exist = checkingEmailInFile(email);
+
+            failure = sending(s2, (char*)&exist, 4);
+            if (failure)
             {
-                tmp = 1;
-                failure = sending(s2, (char*)&tmp, 4);
-                if (failure)
-                {
-                    continue;
-                }
+                continue;
             }
-            else
+            if (exist == 0)
             {
-                tmp = 0;
-                failure = sending(s2, (char*)&tmp, 4);
-                if (failure)
-                {
-                    continue;
-                }
                 // Random key generation
                 std::string key = generateRandomString();
                 std::cout << "Key -> " << key << "\n" << std::endl;
@@ -228,60 +219,60 @@ int main()
                     continue;
                 }
 
-
-                // write email to file
+                // Write email to file
                 writeToFile(email, key, intemailLen);
             }
-
-
-
-
 			// Cleaning char* email
 			clean(email);
 		}
 
-		//case 2
+		// Case 2
 		else if (choice == 2)
 		{
 			char emailBuf[4];
 			unsigned char pass[26]{};
-			failure = receive(s2,emailBuf,4);
+			failure = receive(s2, emailBuf, 4);
 			if (failure)
             {
 			    continue;
             }
 
-			// for email length passing
+			// For email length passing
 			const auto* len_pointer{ (const unsigned int*)&emailBuf };
 			unsigned int intemailLen{ *len_pointer };
 
 			char* email{ new char[intemailLen + 1] };
 
-			failure = receive(s2,email, static_cast<int>(intemailLen));
+			failure = receive(s2, email, static_cast<int>(intemailLen));
 			if (failure)
-			    continue;
+			{
+                continue;
+            }
 			email[intemailLen] = '\0';
 			std::cout << "From client: email: " << email << std::endl;
 
-			failure = receive(s2, (char*)pass,25);
-			if (failure)
-			    continue;
-
-			std::cout << "From client: password: " << pass << std::endl;
-
-            //checking if entered email and password are valid
-			char result{ checking(email, (char*)pass) };
-
-			// Cleaning char* email
-			clean(email);
-
-            failure = sending(s2, &result,4);
+			failure = receive(s2, (char*)pass, 25);
             if (failure)
             {
                 continue;
             }
 
-            if (result == '1') {
+			std::cout << "From client: password: " << pass << std::endl;
+
+            // Checking if entered email and password are valid
+			char result {checking(email, (char*)pass)};
+
+			// Cleaning char* email
+			clean (email);
+
+            failure = sending(s2, &result, 4);
+            if (failure)
+            {
+                continue;
+            }
+
+            if (result == '1')
+            {
                 std::cout << "You are authorized." << std::endl;
 
                 std::string aesDec{};
@@ -290,7 +281,6 @@ int main()
                 failure = receive(s2, (char *)aesEnc, 256);
                 if (failure)
                 {
-                    std::cout << "Receive error!" << std::endl;
                     continue;
                 }
 
@@ -298,24 +288,18 @@ int main()
                 {
                     printf("%x", aesEnc[i]);
                 }
-                std::cout<<"\n";
+                std::cout<<"\n\n";
 
                 aesDec = Decrypt(aesEnc);
-                std::cout<<"\n";
                 std::cout<<aesDec;
 
                 failure = sending(s2, (char*)aesDec.c_str(), 256);
                 if (failure)
                 {
-                    std::cout << "Send error!" << std::endl;
                     continue;
                 }
-
-
-
             }
 		}
-
 		closesocket(s2);
 	}
 }

@@ -7,7 +7,6 @@
 #include <string>
 #include "../rsa/include_rsa.hpp"
 #include "../rsa/encrypt_rsa.hpp"
-#include "../string-encryption/strdecrypt.hpp"
 
 #pragma comment(lib, "Wsock32.lib")
 #pragma comment(lib, "Ws2_32.lib")
@@ -37,11 +36,11 @@ void encryptToFile(std::string aesKey)
     unsigned char* aesEnc = Encrypt(aesKey);
 
     std::ofstream file;
-    //delete file contents
+    // Delete file contents
     file.open("AesKey.txt", std::ofstream::out | std::ofstream::trunc);
     file.close();
 
-    //write to file
+    // Write encrypted binary key to file
     file.open("AesKey.txt", std::ios::out | std::ios::binary);
     if(file.is_open())
     {
@@ -58,12 +57,13 @@ std::string readFileAndSend(SOCKET s)
 
     std::ifstream myFile;
     myFile.open("AesKey.txt", std::ios::in | std::ios::binary);
+
     if (!myFile) {
         std::cout<<"File was`t opened"<<std::endl;
         exit(1);
     }
 
-    //read from file
+    // Read from file
     if (!myFile.read((char*)aesEnc, 256))
     {
         std::cout<<"File was`t read."<<std::endl;
@@ -73,7 +73,7 @@ std::string readFileAndSend(SOCKET s)
 
     sending(s, (char*) aesEnc, 256);
 
-    char aesDec[256];
+    char aesDec[256]{};
 
     receive(s, aesDec, 256);
 
@@ -89,14 +89,14 @@ SOCKET begining()
     peer.sin_family = AF_INET;
     peer.sin_port = htons(5555);
 
-    // as client and server are on the same computer, write the address 127.0.0.1
+    // As client and server are on the same computer, write the address 127.0.0.1
     peer.sin_addr.s_addr;
     InetPton(AF_INET, L"127.0.0.1", &peer.sin_addr.s_addr);
 
-    // create socket
+    // Create socket
     SOCKET s {socket(AF_INET, SOCK_STREAM, 0)};
 
-    // send a connection open request
+    // Send a connection open request
     int requestStatus { connect(s, (struct sockaddr*) &peer, sizeof(peer)) };
 
     return s;
@@ -113,33 +113,34 @@ std::string clientInit()
 	std::cout << "Choose your operation: 1 - get a key(if you don`t have); 2 - verify" << std::endl;
 	std::cin >> choice;
 
-	// sending case
+	// Sending case
     sending(s, (char *) &choice, 4);
 	
-	// case 1, getting key
+	// Case 1, getting key
 	if (choice == 1)
 	{
 		std::cout << "Enter your email to get a key -> ";
 		std::cin >> email;
 
-		// for email length passing
+		// For email length passing
 		const unsigned int len{ static_cast<unsigned int>(email.length()) };
 		const char* emailBuf{ (const char*)&len };
         sending(s, (char*)emailBuf, 4);
 
         sending(s, (char*)email.c_str(), email.length());
 
-        //checking on the same email in file
-        int tmp{};
-        receive(s, (char *) &tmp, 4);
-        if(tmp == 1)
+        // Checking on the same email in file
+        int exist{};
+        receive(s, (char *)&exist, 4);
+
+        if (exist == 1)
         {
-            std::cout<<"Your are already have a key on this email. Try to verify it."<<std::endl;
+            std::cout<<"You`v already had a key on this email. Try to verify it."<<std::endl;
             exit(0);
         }
         else
         {
-            // receiving data
+            // Receiving generated key from server
             receive(s, secretKey, sizeof(secretKey));
 
             std::cout << "Your key: " << secretKey << std::endl;
@@ -148,11 +149,12 @@ std::string clientInit()
         }
 	}
 
-	// case 2, checking key
+	// Case 2, checking key
 	else if (choice == 2)
 	{
 		std::string userKey;
 
+		// Entering email and key for verifying
 		std::cout << "Enter your e-mail  -> ";
 		std::cin >> email;
 
@@ -160,33 +162,25 @@ std::string clientInit()
 		std::cin >> userKey;
 		std::cout << std::endl;
 
-		// for email length passing
+		// For email length passing
 		const unsigned int len{ static_cast<unsigned int>(email.length()) };
 		const char* emailBuf{ (const char*)&len };
 
-		sending(s,(char*)emailBuf,4);
+		sending(s, (char*)emailBuf, 4);
 
-		sending(s,(char*)email.c_str(), email.length());
+		sending(s, (char*)email.c_str(), email.length());
 
-		// key passing
-		sending(s,(char*)userKey.c_str(),25);
+		// Key passing
+		sending(s, (char*)userKey.c_str(), 25);
 		char result {};
 
-		// checking
-		receive(s,&result,4);
-
+		// Checking
+		receive(s, &result, 4);
 
 		if (result == '1')
 		{
 			std::cout << "You are authorized." << std::endl;
 
-            // временная строка
-            //std::string aesKey{"Nastya_molodets"};
-
-            // func 1
-            //encryptToFile(aesKey);
-
-            // func 2
             std::string aesDec {readFileAndSend(s)};
             return aesDec;
 		}
@@ -198,7 +192,7 @@ std::string clientInit()
 	}
 	else
     {
-	    std::cout<<"You enter the wrong number. Try again."<<std::endl;
+	    std::cout<<"You entered the wrong number. Try again."<<std::endl;
     }
 
 	closesocket(s);

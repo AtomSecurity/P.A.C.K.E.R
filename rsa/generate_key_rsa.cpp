@@ -8,11 +8,13 @@
 
 void Generate_Keys()
 {
+
     RSA* key;
     BIGNUM* bne;
     BIO *bp_public, *bp_private;
     unsigned long e = RSA_F4;
 
+    // Create RSA key for encrypting and decrypting data
     bne = BN_new();
     BN_set_word(bne, e);
 
@@ -20,6 +22,7 @@ void Generate_Keys()
 
     RSA_generate_key_ex(key, 2048, bne, nullptr);
 
+    // Create files for writing public and private keys
     bp_public = BIO_new_file("public.txt", "w+");
     PEM_write_bio_RSAPublicKey(bp_public, key);
 
@@ -28,12 +31,8 @@ void Generate_Keys()
 }
 
 
-int main() {
-
-    //std::string text;
-    //std::cin >> text;
-    //std::string encrypt_text;
+int main()
+{
+    // Generate keys
     Generate_Keys();
-    //encrypt_text = Encrypt(text);
-    //Decrypt(encrypt_text);
 }

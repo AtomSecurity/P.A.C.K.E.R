@@ -33,7 +33,7 @@ void sending(SOCKET s, char* toSend, int len)
 
 void encryptToFile(std::string aesKey)
 {
-    unsigned char* aesEnc = Encrypt(aesKey);
+    unsigned char* aesEnc {Encrypt(aesKey)};
 
     std::ofstream file;
     // Delete file contents
@@ -48,7 +48,9 @@ void encryptToFile(std::string aesKey)
         file.close();
     }
     else
-        std::cout<<"File was`t opened";
+    {
+        std::cout << "File was`t opened";
+    }
 }
 
 std::string readFileAndSend(SOCKET s)
@@ -59,14 +61,14 @@ std::string readFileAndSend(SOCKET s)
     myFile.open("AesKey.txt", std::ios::in | std::ios::binary);
 
     if (!myFile) {
-        std::cout<<"File was`t opened"<<std::endl;
+        std::cout << "File was`t opened" << std::endl;
         exit(1);
     }
 
     // Read from file
     if (!myFile.read((char*)aesEnc, 256))
     {
-        std::cout<<"File was`t read."<<std::endl;
+        std::cout << "File was`t read." << std::endl;
         exit(1);
     }
     myFile.close();
@@ -74,7 +76,6 @@ std::string readFileAndSend(SOCKET s)
     sending(s, (char*) aesEnc, 256);
 
     char aesDec[256]{};
-
     receive(s, aesDec, 256);
 
     return aesDec;
@@ -135,7 +136,7 @@ std::string clientInit()
 
         if (exist == 1)
         {
-            std::cout<<"You`v already had a key on this email. Try to verify it."<<std::endl;
+            std::cout << "You have already had a key on this email. Try to verify it." << std::endl;
             exit(0);
         }
         else
@@ -192,7 +193,7 @@ std::string clientInit()
 	}
 	else
     {
-	    std::cout<<"You entered the wrong number. Try again."<<std::endl;
+	    std::cout << "You entered the wrong number. Try again." << std::endl;
     }
 
 	closesocket(s);

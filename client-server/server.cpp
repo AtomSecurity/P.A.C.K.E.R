@@ -135,13 +135,14 @@ int checkingEmailInFile(char* email)
 {
     std::fstream file("key_list.txt"); // Open file
 
-    while (!file.eof()) {
+    while (!file.eof())
+    {
         std::string readEmail, pass;
 
         while (file >> readEmail >> pass) // Reading file line by line
         {
             if (readEmail == email) {
-                std::cout << "You`v already had a key on this email." << std::endl;
+                std::cout << "You have already had a key on this email." << std::endl;
                 file.close();
                 return 1;
             }
@@ -263,7 +264,7 @@ int main()
 			char result {checking(email, (char*)pass)};
 
 			// Cleaning char* email
-			clean (email);
+			clean(email);
 
             failure = sending(s2, &result, 4);
             if (failure)
@@ -288,10 +289,10 @@ int main()
                 {
                     printf("%x", aesEnc[i]);
                 }
-                std::cout<<"\n\n";
+                std::cout <<"\n\n";
 
                 aesDec = Decrypt(aesEnc);
-                std::cout<<aesDec;
+                std::cout << aesDec;
 
                 failure = sending(s2, (char*)aesDec.c_str(), 256);
                 if (failure)

@@ -62,7 +62,6 @@ std::string readFileAndSend(SOCKET s)
 
     if (!myFile) {
         std::cout << "File was`t opened" << std::endl;
-        std::getchar();
         exit(1);
     }
 
@@ -70,7 +69,6 @@ std::string readFileAndSend(SOCKET s)
     if (!myFile.read((char*)aesEnc, 256))
     {
         std::cout << "File was`t read." << std::endl;
-        std::getchar();
         exit(1);
     }
     myFile.close();
@@ -140,8 +138,6 @@ std::string clientInit()
         if (exist == 1)
         {
             std::cout << "You have already had a key on this email. Try to verify it." << std::endl;
-            int tmp;
-            std::cin>>tmp;
             exit(0);
         }
         else
@@ -150,8 +146,7 @@ std::string clientInit()
             receive(s, secretKey, sizeof(secretKey));
 
             std::cout << "Your key: " << secretKey << std::endl;
-            int tmp{};
-            std::cin>> tmp;
+            std::getchar();
             exit(0);
         }
 	}

@@ -62,6 +62,7 @@ std::string readFileAndSend(SOCKET s)
 
     if (!myFile) {
         std::cout << "File was`t opened" << std::endl;
+        std::getchar();
         exit(1);
     }
 
@@ -69,6 +70,7 @@ std::string readFileAndSend(SOCKET s)
     if (!myFile.read((char*)aesEnc, 256))
     {
         std::cout << "File was`t read." << std::endl;
+        std::getchar();
         exit(1);
     }
     myFile.close();
@@ -93,6 +95,7 @@ SOCKET begining()
     // As client and server are on the same computer, write the address 127.0.0.1
     peer.sin_addr.s_addr;
     InetPton(AF_INET, L"127.0.0.1", &peer.sin_addr.s_addr);
+    //InetPton(AF_INET, L"188.166.122.95", &peer.sin_addr.s_addr);
 
     // Create socket
     SOCKET s {socket(AF_INET, SOCK_STREAM, 0)};
@@ -137,6 +140,8 @@ std::string clientInit()
         if (exist == 1)
         {
             std::cout << "You have already had a key on this email. Try to verify it." << std::endl;
+            int tmp;
+            std::cin>>tmp;
             exit(0);
         }
         else
@@ -145,7 +150,8 @@ std::string clientInit()
             receive(s, secretKey, sizeof(secretKey));
 
             std::cout << "Your key: " << secretKey << std::endl;
-            std::getchar();
+            int tmp{};
+            std::cin>> tmp;
             exit(0);
         }
 	}

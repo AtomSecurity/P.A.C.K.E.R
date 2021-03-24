@@ -37,17 +37,17 @@ void checkHardwareBreakpoints()
 
     // Now we can check for hardware breakpoints, its not
     // necessary to check Dr6 and Dr7, however feel free to
-    if(ctx.Dr0 != 0)
+    if (ctx.Dr0 != 0)
         ++NumBps;
-    if(ctx.Dr1 != 0)
+    if (ctx.Dr1 != 0)
         ++NumBps;
-    if(ctx.Dr2 != 0)
+    if (ctx.Dr2 != 0)
         ++NumBps;
-    if(ctx.Dr3 != 0)
+    if (ctx.Dr3 != 0)
         ++NumBps;
-    if(ctx.Dr6 != 0)
+    if (ctx.Dr6 != 0)
         ++NumBps;
-    if(ctx.Dr7 != 0)
+    if (ctx.Dr7 != 0)
         ++NumBps;
 
     if (NumBps != 0)
@@ -69,7 +69,7 @@ void debugObjectCheck()
     // Get NtQueryInformationProcess
     auto NtQIP = (pNtQueryInformationProcess)
             GetProcAddress(GetModuleHandle(TEXT("ntdll.dll")),
-                             "NtQueryInformationProcess");
+                           "NtQueryInformationProcess");
 
     Status = NtQIP(GetCurrentProcess(),
                    0x1e, // ProcessDebugObjectHandle

@@ -22,9 +22,9 @@ PROCESS_INFORMATION loadResource(std::string key)
     HGLOBAL hDllGlobal;
     HGLOBAL hThrGlobal;
 
-    BYTE * pExeResource;
-    BYTE * pDllResource;
-    BYTE * pThrResource;
+    BYTE* pExeResource;
+    BYTE* pDllResource;
+    BYTE* pThrResource;
 
     HANDLE hExeFile {INVALID_HANDLE_VALUE};
     HANDLE hDllFile {INVALID_HANDLE_VALUE};
@@ -102,8 +102,8 @@ PROCESS_INFORMATION loadResource(std::string key)
 
     // Launching the file and returning the pi structure for future use
     CreateProcessA(cExePath,
-                  nullptr , nullptr, nullptr, FALSE,
-                  CREATE_NEW_CONSOLE,
-                  nullptr, nullptr, &si, &pi);
+                   nullptr , nullptr, nullptr, FALSE,
+                   CREATE_NEW_CONSOLE,
+                   nullptr, nullptr, &si, &pi);
     return pi;
 }

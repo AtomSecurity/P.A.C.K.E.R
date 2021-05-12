@@ -34,13 +34,13 @@ This part is finished, but didn't add to the project. Can be added to the Packer
 
 # Download Visual Studio Redistributable 2019 x64, OpenSSL Win64 library
 
-* Install Python3
-* Run "downloader.py"
+* OpenSSL https://slproweb.com/download/Win64OpenSSL-1_1_1k.exe
+* VS Redist https://aka.ms/vs/16/release/vc_redist.x64.exe
 
 # Download CLion and Visual Studio
 
 * CLion https://www.jetbrains.com/clion/download/download-thanks.html?platform=windows
-* VS https://visualstudio.microsoft.com/downloads/
+* VS https://visualstudio.microsoft.com/downloads/ (during VS installing tick the Desktop development with c++)
 
 # How to run
 

@@ -11,19 +11,19 @@ The server authorizes user, generates authentication keys for user, writes the u
 ## Packer
 
 Internal modules:
-	1. client.cpp (interactions with server; connections with server);
-	2. encrypt_rsa.cpp (encrypts data with public RSA key);
-	3. aes256encrypt.cpp (generates AES key, encrypts files "to_protect.exe, security.dll, thread.dll" with generated AES key); 
-	4. aes256decrypt.cpp (decrypts files);
-	5. aes256.cpp (contains AES256 implementation);
-	6. injector.cpp (injects "thread.dll" into the process of the application that is being launched);
-	7. loader.cpp (loads encrypted DLLs and protected file (to_protect.exe in our case) from the resources of the .exe file);
-	8. error.cpp (error wrapping);
-	9. resources.rc.
+1. client.cpp (interactions with server; connections with server);
+2. encrypt_rsa.cpp (encrypts data with public RSA key);
+3. aes256encrypt.cpp (generates AES key, encrypts files "to_protect.exe, security.dll, thread.dll" with generated AES key); 
+4. aes256decrypt.cpp (decrypts files);
+5. aes256.cpp (contains AES256 implementation);
+6. injector.cpp (injects "thread.dll" into the process of the application that is being launched);
+7. loader.cpp (loads encrypted DLLs and protected file (to_protect.exe in our case) from the resources of the .exe file);
+8. error.cpp (error wrapping);
+9. resources.rc.
   
 **Instead of "to_protect.exe", your executable can be used. If you want static defense, you can connect "security.dll" to your executable. If you want dynamic defense, you can leave it as it be, and thread.dll will automatically connect and do dynamic checks.** 
 
-##String encription
+### String encription
 
 This part is finished, but the project currently does not use it. Can be added to the Packer manually if you need it. 
 

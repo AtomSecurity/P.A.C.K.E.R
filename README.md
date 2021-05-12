@@ -47,6 +47,7 @@ This part is finished, but the project currently does not use it. Can be added t
 **Must be compiled for x64.**
  
 * Build project according to the last instructions in CMakeLists:
+	0. Enable auto-reload of the CMake project;
 	1. Comment the last line, begin with "add_executable(to-protect...";
 	2. Build the project for x64 platform;
 	3. Uncomment the last line back;

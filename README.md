@@ -8,7 +8,7 @@
 
 The server authorizes user, generates authentication keys for user, writes the user's email and password to file, decrypts the key received from the client.
  
-## Packer
+## P.A.C.K.E.R
 
 Internal modules:
 1. client.cpp (interactions with server; connections with server);
@@ -25,11 +25,11 @@ Internal modules:
 
 ### String encription
 
-This part is finished, but the project currently does not use it. Can be added to the Packer manually if you need it. 
+This part is finished, but the project currently does not use it. Can be added to the P.A.C.K.E.R manually if you need it. 
 
 # Software Requirements
 
-**To compile** Packer you have to use Visual Studio x64 compiler (MSVC), OpenSSL library. The code is written and built in CLion. 
+**To compile** P.A.C.K.E.R you have to use Visual Studio x64 compiler (MSVC), OpenSSL library. The code is written and built in CLion. 
 **To run** this project you need a Visual Studio Redistributable 2019 x64. OpenSSL Win64 library needs to be installed. 
 
 # Download Visual Studio Redistributable 2019 x64, OpenSSL Win64 library

@@ -4,7 +4,7 @@
 # Intro
 
 P.A.C.K.E.R is a simple DRM software that can grant and verify serial keys, encrypt & decrypt [RSA & AES] your software. It also has modules to protect your executable (by injecting a thread and an attachable DLL) for anti-debugging purposes.
-The code can be modified and used freely on the terms of MIT license.
+The code can be modified and used freely according to the MIT license.
  
 ## Server
 

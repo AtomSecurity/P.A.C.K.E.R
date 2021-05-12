@@ -40,7 +40,7 @@ This part is finished, but the project currently does not use it. Can be added t
 # Download CLion and Visual Studio
 
 * CLion https://www.jetbrains.com/clion/download/download-thanks.html?platform=windows
-* VS https://visualstudio.microsoft.com/downloads/ (during VS installing tick the Desktop development with c++)
+* VS https://visualstudio.microsoft.com/downloads/ (during the VS installation make sure to select the "Desktop development with C++" option)
 
 # How to run
 

@@ -35,4 +35,4 @@ target_link_libraries(rsa PRIVATE OpenSSL::Crypto)
 
 
 # file that we are trying to protect (comment, build, uncomment and build again so it has the access to the dll)
-add_executable(to-protect to-protect/to-protect.cpp to-protect/to-protect.cpp)
+add_executable(to-protect to-protect/to-protect.cpp dll/security.cpp)

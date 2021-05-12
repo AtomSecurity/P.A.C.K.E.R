@@ -30,8 +30,8 @@ add_library(security SHARED dll/security.cpp)
 add_library(thread SHARED dll/thread.cpp)
 
 # rsa
-# add_executable(rsa rsa/generate_key_rsa.cpp rsa/encrypt_rsa.cpp rsa/decrypt_rsa.cpp)
-# target_link_libraries(rsa PRIVATE OpenSSL::Crypto)
+add_executable(rsa rsa/generate_key_rsa.cpp rsa/encrypt_rsa.cpp rsa/decrypt_rsa.cpp)
+target_link_libraries(rsa PRIVATE OpenSSL::Crypto)
 
 
 # file that we are trying to protect (comment, build, uncomment and build again so it has the access to the dll)

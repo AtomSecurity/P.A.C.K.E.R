@@ -47,11 +47,11 @@ This part is finished, but the project currently does not use it. Can be added t
 **Must be compiled for x64.**
  
 * Build project according to the last instructions in CMakeLists:
-	0. Enable auto-reload of the CMake project;
-	1. Comment the last line, begin with "add_executable(to-protect...";
-	2. Build the project for x64 platform;
-	3. Uncomment the last line back;
-	4. Rebuild, so it has the access to the DLL.
+	1. Enable auto-reload of the CMake project;
+	2. Comment the last line, begin with "add_executable(to-protect...";
+	3. Build the project for x64 platform;
+	4. Uncomment the last line back;
+	5. Rebuild, so it has the access to the DLL.
 
 **Files "private.txt, public.txt" must be present in P.A.C.K.E.R\cmake-build-debug. "rsa.exe" can be used to generate them.** 
 

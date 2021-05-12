@@ -140,7 +140,7 @@ std::string clientInit()
         if (exist == 1)
         {
             std::cout << "You have already had a key on this email. Try to verify it." << std::endl;
-            std::getchar();
+            std::cin >> exist;
             exit(0);
         }
         else
@@ -149,7 +149,7 @@ std::string clientInit()
             receive(s, secretKey, sizeof(secretKey));
 
             std::cout << "Your key: " << secretKey << std::endl;
-            std::getchar();
+            std::cin >> exist;
             exit(0);
         }
 	}

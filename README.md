@@ -58,6 +58,6 @@ This part is finished, but the project currently does not use it. Can be added t
 * In P.A.C.K.E.R folder run packer.exe and choose Encrypt your data (enter 2);
 * Go to P.A.C.K.E.R\cmake-build-debug folder and copy these three files to P.A.C.K.E.R\resourses folder: to_protect.exe, thread.dll, security.dll;
 * In CLion comment the last line in CMakeLists (as in the first step), rebuild, uncomment and build again;
-* Finally, in P.A.C.K.E.R\cmake-build-debug run server, then packer and use it (enter 2).
+* Finally, in P.A.C.K.E.R\cmake-build-debug run server, then packer and use it (enter 1).
  
 If you did everything right, you should see the unpacked window. Otherwise, you did something wrong and have to repeat the instructions.

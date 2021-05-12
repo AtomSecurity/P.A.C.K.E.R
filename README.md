@@ -34,15 +34,8 @@ This part is finished, but the project currently does not use it. Can be added t
 
 # Download Visual Studio Redistributable 2019 x64, OpenSSL Win64 library
 
-<<<<<<< HEAD
 * OpenSSL https://slproweb.com/download/Win64OpenSSL-1_1_1k.exe
 * VS Redist https://aka.ms/vs/16/release/vc_redist.x64.exe
-=======
-# Download CLion and Visual Studio
-
-* CLion https://www.jetbrains.com/clion/download/download-thanks.html?platform=windows
-* VS https://visualstudio.microsoft.com/downloads/ (during VS installing tick the Desktop development with c++)
->>>>>>> 332b4b588c273ec1d0f98c6e7b54a5a04ce7e388
 
 # Download CLion and Visual Studio
 

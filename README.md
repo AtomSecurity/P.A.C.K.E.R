@@ -47,8 +47,8 @@ This part is finished, but the project currently does not use it. Can be added t
 **Must be compiled for x64.**
  
 * Build project according to the last instructions in CMakeLists:
-	1. Enable auto-reload of the CMake project;
-	2. Comment the last line, begin with "add_executable(to-protect...";
+	1. Comment the last line, begin with "add_executable(to-protect...";
+	2. Enable auto-reload of the CMake project;
 	3. Build the project for x64 platform;
 	4. Uncomment the last line back;
 	5. Rebuild, so it has the access to the DLL.
